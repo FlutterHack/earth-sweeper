@@ -1,6 +1,11 @@
+import 'package:earthsweeper/pages/login_page.dart';
+import 'package:earthsweeper/pages/setup_page.dart';
+import 'package:earthsweeper/widgets/appbar.dart';
 import 'package:earthsweeper/widgets/windows95/src/alert95.dart';
 import 'package:earthsweeper/widgets/windows95/src/button95.dart';
 import 'package:flutter/material.dart';
+
+import 'widgets/windows95/flutter95.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,6 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -49,30 +55,52 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+    return SafeArea(
+      child: Scaffold95(
+        title: 'EarthSweeper',
+        toolbar: Toolbar95(
+          actions: [
+            Item95(
+              label: 'Game',
+              menu: Menu95(
+                  onItemSelected: (val) {
+                    switch (val) {
+                      case 4:
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => SetupPage()));
+                        break;
+                    }
+                  },
+                  items: [
+                    MenuItem95(
+                      value: 1,
+                      label: 'Beginner',
+                    ),
+                    MenuItem95(
+                      value: 2,
+                      label: 'Medium',
+                    ),
+                    MenuItem95(
+                      value: 3,
+                      label: 'Expert',
+                    ),
+                    MenuItem95(
+                      value: 4,
+                      label: 'Custom',
+                    ),
+                  ]),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            Item95(
+              label: 'Get Seeds',
+              onTap: (_) {},
+            ),
+            Item95(
+              label: 'Plant a Tree',
+              onTap: (_) {},
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _incrementCounter(context);
-        },
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+        body: LoginPage(),
       ),
     );
   }
