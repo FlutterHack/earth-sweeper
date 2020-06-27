@@ -1,1 +1,1 @@
-
+const double MINE_POINT_DIMENSION = 25;
