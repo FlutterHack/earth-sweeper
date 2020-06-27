@@ -1,10 +1,10 @@
 import 'package:earthsweeper/pages/login_page.dart';
+import 'package:earthsweeper/pages/setup_page.dart';
 import 'package:earthsweeper/widgets/appbar.dart';
 import 'package:earthsweeper/widgets/windows95/src/alert95.dart';
 import 'package:earthsweeper/widgets/windows95/src/button95.dart';
 import 'package:flutter/material.dart';
 
-import 'widgets/windows95/flutter95.dart';
 import 'widgets/windows95/flutter95.dart';
 
 void main() {
@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -61,20 +62,33 @@ class _MyHomePageState extends State<MyHomePage> {
           actions: [
             Item95(
               label: 'Game',
-              menu: Menu95(onItemSelected: (_) {}, items: [
-                MenuItem95(
-                  value: 1,
-                  label: 'Beginner',
-                ),
-                MenuItem95(
-                  value: 2,
-                  label: 'Medium',
-                ),
-                MenuItem95(
-                  value: 3,
-                  label: 'Expert',
-                ),
-              ]),
+              menu: Menu95(
+                  onItemSelected: (val) {
+                    switch (val) {
+                      case 4:
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => SetupPage()));
+                        break;
+                    }
+                  },
+                  items: [
+                    MenuItem95(
+                      value: 1,
+                      label: 'Beginner',
+                    ),
+                    MenuItem95(
+                      value: 2,
+                      label: 'Medium',
+                    ),
+                    MenuItem95(
+                      value: 3,
+                      label: 'Expert',
+                    ),
+                    MenuItem95(
+                      value: 4,
+                      label: 'Custom',
+                    ),
+                  ]),
             ),
             Item95(
               label: 'Get Seeds',
