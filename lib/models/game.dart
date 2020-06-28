@@ -29,12 +29,12 @@ class Game {
     }
 
     print(points[4][1].nearbyCount);
-    // Took random mineCount times point and mine them
 
+    // Took random mineCount times point and mine them
     int placedMine = 0;
     while(placedMine != mineCount){
       int randomX = (Random().nextDouble() * width).floor();
-      int randomY = (Random().nextDouble() * width).floor();
+      int randomY = (Random().nextDouble() * height).floor();
 
       if(!points[randomX][randomY].mined){
         // Place mines
@@ -59,7 +59,7 @@ class Game {
   }
 
   bool increaseNearbyCount(x, y){
-    if((x >= 0 && x < width) && (y >= 0 && y < width)){
+    if((x >= 0 && x < width) && (y >= 0 && y < height)){
       points[x][y].increaseNearbyCount();
     }
   }
