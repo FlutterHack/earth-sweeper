@@ -32,17 +32,26 @@ class _MineBlock extends State<MineBlock> {
     return !widget.blockController.opened
             ? GestureDetector(
               onTapDown: (details){
-                widget.blockController.tabbed = true;
-                Provider.of<MineSweeperProvider>(context, listen: false).excitement = true;
+                if(!widget.blockController.disabled){
+                  widget.blockController.tabbed = true;
+                  Provider.of<MineSweeperProvider>(context, listen: false).excitement = true;
+                }
               },
               onTapUp: (details){
-                widget.blockController.tabbed = false;
-                Provider.of<MineSweeperProvider>(context, listen: false).excitement = false;
-                Provider.of<MineSweeperProvider>(context, listen: false).blockClick(widget.blockController);
+                if(!widget.blockController.disabled){
+                  widget.blockController.tabbed = false;
+                  Provider.of<MineSweeperProvider>(context, listen: false).excitement = false;
+                  Provider.of<MineSweeperProvider>(context, listen: false).blockClick(widget.blockController);
+                }
               },
               onDoubleTap: (){
-                widget.blockController.flagged = !widget.blockController.flagged;
-                widget.blockController.tabbed = false;
+                if(!widget.blockController.disabled){
+                  widget.blockController.flagged = !widget.blockController.flagged;
+                  widget.blockController.tabbed = false;
+
+                  Provider.of<MineSweeperProvider>(context, listen: false).excitement = false;
+                  Provider.of<MineSweeperProvider>(context, listen: false).decreaseFlagCount();
+                }
               },
               child: Container(
                 width: widget.blockDiemension,

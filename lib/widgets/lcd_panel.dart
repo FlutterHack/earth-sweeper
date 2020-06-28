@@ -25,7 +25,7 @@ class LCDPanel extends StatelessWidget {
           Row(
             children: List.generate(length, (index) =>
                 Image.asset(
-                  "assets/lcd_panel/${number.toString().padLeft(length, "-")[index]}.png",
+                  "assets/lcd_panel/${number.toString().padLeft(length, "0")[index]}.png",
                   height: height,
                   fit: BoxFit.fill,)),
           ),

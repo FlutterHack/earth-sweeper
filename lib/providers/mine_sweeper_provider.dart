@@ -73,14 +73,7 @@ class MineSweeperProvider extends ChangeNotifier{
   }
 
   void blockClick(MineBlockController mineBlock){
-    // Start timer if it didn't started yet
-    if(timer == null){
-      timer = Timer.periodic(Duration(seconds: 1), (t){
-        counter++;
-      });
-
-      game.state = GameState.playing;
-    }
+    checkAndStartGame();
 
     // Set excitement false
     excitement = false;
@@ -107,6 +100,25 @@ class MineSweeperProvider extends ChangeNotifier{
     else if (mineBlock.pointData.nearbyCount == 0){
       // Apply walk method to open all nonmined block
       openBlock(mineBlock.pointData.x, mineBlock.pointData.y, allowPassThoughNumber: true);
+    }
+  }
+
+  void decreaseFlagCount(){
+    checkAndStartGame();
+
+    game.flagCount--;
+    notifyListeners();
+  }
+
+
+  void checkAndStartGame(){
+    // Start timer if it didn't started yet
+    if(timer == null){
+      timer = Timer.periodic(Duration(seconds: 1), (t){
+        counter++;
+      });
+
+      game.state = GameState.playing;
     }
   }
 
@@ -139,6 +151,8 @@ class MineSweeperProvider extends ChangeNotifier{
         if(!point.flagged && point.pointData.mined){
           point.opened = true;
         }
+
+        point.disabled = true;
       }
     }
   }
