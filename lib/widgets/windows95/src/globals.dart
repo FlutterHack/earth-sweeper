@@ -13,7 +13,7 @@ class Flutter95 {
   static const primary = Color(0xFF000e7a);
   static const secondary = Color(0xFF55aaaa);
   static const headerDark = Color(0xFF000080);
-  static const headerLight = Color(0xFF1034a6);
+  static const headerLight = Color(0xFF0884CE);
   static const white = Color(0xFFFFFFFF);
   static const black = Color.fromRGBO(5, 6, 8, 1);
 
