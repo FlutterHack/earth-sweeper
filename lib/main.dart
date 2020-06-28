@@ -4,6 +4,7 @@ import 'package:earthsweeper/pages/login_page.dart';
 import 'package:earthsweeper/pages/seed_page.dart';
 import 'package:earthsweeper/pages/setup_page.dart';
 import 'package:earthsweeper/providers/game_settings_provider.dart';
+import 'package:earthsweeper/providers/seed_provider.dart';
 import 'package:earthsweeper/widgets/windows95/src/alert95.dart';
 import 'package:earthsweeper/widgets/windows95/src/button95.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => GameSettingsProvider())
+        ChangeNotifierProvider(create: (_) => GameSettingsProvider()),
+        ChangeNotifierProvider(create: (_) => SeedProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

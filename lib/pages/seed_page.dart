@@ -1,12 +1,21 @@
+import 'package:earthsweeper/providers/seed_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/windows95/flutter95.dart';
-import '../widgets/windows95/flutter95.dart';
-import '../widgets/windows95/flutter95.dart';
 
-class SeedPage extends StatelessWidget {
+class SeedPage extends StatefulWidget {
+  @override
+  _SeedPageState createState() => _SeedPageState();
+}
+
+class _SeedPageState extends State<SeedPage> {
+  String errorText = "";
+
   @override
   Widget build(BuildContext context) {
+    var seedModel = Provider.of<SeedProvider>(context);
+
     return SafeArea(
         child: Scaffold95(
             title: 'Seeds',
@@ -20,7 +29,8 @@ class SeedPage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text("42 Seeds", style: Flutter95.textStyle),
+                          Text("${seedModel.seeds} Seeds",
+                              style: Flutter95.textStyle),
                           Image.asset(
                             'assets/seed.png',
                             width: 30,
@@ -36,7 +46,12 @@ class SeedPage extends StatelessWidget {
                           Text("Watch Ad to earn 100 Seeds",
                               style: Flutter95.textStyle),
                           Button95(
-                            onTap: () {},
+                            onTap: () {
+                              seedModel.increase(100);
+                              setState(() {
+                                errorText = "";
+                              });
+                            },
                             child: Text("Watch"),
                           )
                         ],
@@ -50,7 +65,12 @@ class SeedPage extends StatelessWidget {
                           Text("Purchase 500 seeds",
                               style: Flutter95.textStyle),
                           Button95(
-                            onTap: () {},
+                            onTap: () {
+                              seedModel.increase(500);
+                              setState(() {
+                                errorText = "";
+                              });
+                            },
                             child: Text("\$ 1"),
                           )
                         ],
@@ -64,7 +84,12 @@ class SeedPage extends StatelessWidget {
                           Text("Purchase 1500 Seeds",
                               style: Flutter95.textStyle),
                           Button95(
-                            onTap: () {},
+                            onTap: () {
+                              seedModel.increase(1500);
+                              setState(() {
+                                errorText = "";
+                              });
+                            },
                             child: Text("\$ 2"),
                           )
                         ],
@@ -85,31 +110,46 @@ class SeedPage extends StatelessWidget {
                     //   ),
                     // ),
                     Container(
-                        margin: const EdgeInsets.all(8.0),
-                        child: Elevation95(
-                          child: Center(
-                            child: Column(
-                              children: <Widget>[
-                                Image.asset(
-                                  'assets/plant_tree.png',
-                                  height: 200,
+                      margin: const EdgeInsets.all(8.0),
+                      child: Elevation95(
+                        child: Center(
+                          child: Column(
+                            children: <Widget>[
+                              Image.asset(
+                                'assets/plant_tree.png',
+                                height: 200,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text("Plant a Tree for 2000 seeds",
+                                    style: Flutter95.textStyle),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Button95(
+                                  child: Text("Plant"),
+                                  onTap: () {
+                                    if (seedModel.isEnoughSeed(2000)) {
+                                      setState(() {
+                                        errorText = "";
+                                      });
+                                      seedModel.decrease(2000);
+                                    } else {
+                                      setState(() {
+                                        errorText = "Not Enough Seeds";
+                                      });
+                                    }
+                                  },
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text("Plant a Tree for 2000 seeds",
-                                      style: Flutter95.textStyle),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Button95(
-                                    child: Text("Plant"),
-                                    onTap: () {},
-                                  ),
-                                )
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ))
+                        ),
+                      ),
+                    ),
+                    if (errorText.isNotEmpty)
+                      Center(
+                          child: Text(errorText, style: Flutter95.textStyle)),
                   ],
                 ),
               ),
