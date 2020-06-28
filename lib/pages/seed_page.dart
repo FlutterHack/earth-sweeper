@@ -85,25 +85,31 @@ class SeedPage extends StatelessWidget {
                     //   ),
                     // ),
                     Container(
-                        child: Center(
-                      child: Column(
-                        children: <Widget>[
-                          Image.asset(
-                            'assets/tree.png',
-                            height: 200,
+                        margin: const EdgeInsets.all(8.0),
+                        child: Elevation95(
+                          child: Center(
+                            child: Column(
+                              children: <Widget>[
+                                Image.asset(
+                                  'assets/tree.png',
+                                  height: 200,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text("Plant a Tree for 2000 seeds",
+                                      style: Flutter95.textStyle),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Button95(
+                                    child: Text("Plant"),
+                                    onTap: () {},
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Text("Plant a Tree for 2000 seeds",
-                                style: Flutter95.textStyle),
-                          ),
-                          Button95(
-                            child: Text("Plant"),
-                            onTap: () {},
-                          )
-                        ],
-                      ),
-                    ))
+                        ))
                   ],
                 ),
               ),

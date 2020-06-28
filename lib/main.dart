@@ -1,9 +1,12 @@
+import 'package:earthsweeper/models/game.dart';
 import 'package:earthsweeper/pages/login_page.dart';
 import 'package:earthsweeper/pages/seed_page.dart';
 import 'package:earthsweeper/pages/setup_page.dart';
+import 'package:earthsweeper/providers/game_settings_provider.dart';
 import 'package:earthsweeper/widgets/windows95/src/alert95.dart';
 import 'package:earthsweeper/widgets/windows95/src/button95.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'widgets/windows95/flutter95.dart';
 import 'widgets/windows95/src/menu95.dart';
@@ -15,14 +18,19 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          fontFamily: "MSSansSerif"),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => GameSettingsProvider())
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+            primarySwatch: Colors.blue,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+            fontFamily: "MSSansSerif"),
+        home: MyHomePage(title: 'Flutter Demo Home Page'),
+      ),
     );
   }
 }
@@ -37,73 +45,94 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int gameType;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold95(
-        title: 'EarthSweeper',
-        toolbar: Toolbar95(
-          actions: [
-            Item95(
-              label: 'Game',
-              menu: Menu95(
-                  onItemSelected: (val) {
-                    switch (val) {
-                      case 5:
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => SetupPage()));
-                        break;
-                    }
-                  },
+      child: Consumer<GameSettingsProvider>(
+        child: LoginPage(),
+        builder: (context, model, child) => Scaffold95(
+          title: 'Earth Sweeper',
+          toolbar: Toolbar95(
+            actions: [
+              Item95(
+                label: 'Game',
+                menu: Menu95(
+                    onItemSelected: (val) {
+                      switch (val) {
+                        case 0:
+                          model.changeSettings(GameType.beginner, 9, 9, 10);
+                          break;
+                        case 1:
+                          model.changeSettings(
+                              GameType.intermediate, 16, 16, 40);
+                          break;
+                        case 2:
+                          model.changeSettings(GameType.expert, 30, 16, 990);
+
+                          break;
+                        case 3:
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => SetupPage()));
+                          break;
+                      }
+                    },
+                    items: [
+                      MenuItem95(
+                        value: 0,
+                        label: 'Beginner' +
+                            (model.settings.type.index == 0 ? ' ✓' : ''),
+                      ),
+                      MenuItem95(
+                        value: 1,
+                        label: 'Medium' +
+                            (model.settings.type.index == 1 ? ' ✓' : ''),
+                      ),
+                      MenuItem95(
+                        value: 2,
+                        label: 'Expert' +
+                            (model.settings.type.index == 2 ? ' ✓' : ''),
+                      ),
+                      MenuItem95(
+                        value: 3,
+                        label: 'Custom' +
+                            (model.settings.type.index == 3 ? ' ✓' : ''),
+                      ),
+                    ]),
+              ),
+              Item95(
+                label: 'Seeds',
+                menu: Menu95(
                   items: [
                     MenuItem95(
                       value: 1,
-                      label: 'Beginner',
+                      label: 'Get Seeds',
                     ),
                     MenuItem95(
                       value: 2,
-                      label: 'Medium',
+                      label: 'Plant Tree',
                     ),
-                    MenuItem95(
-                      value: 3,
-                      label: 'Expert',
-                    ),
-                    MenuItem95(
-                      value: 4,
-                      label: 'Custom',
-                    ),
-                    MenuItem95(
-                      value: 5,
-                      label: 'Change Difficulty',
-                    ),
-                  ]),
-            ),
-            Item95(
-              label: 'Seeds',
-              menu: Menu95(
-                items: [
-                  MenuItem95(
-                    value: 1,
-                    label: 'Get Seeds',
-                  ),
-                  MenuItem95(
-                    value: 2,
-                    label: 'Plant Tree',
-                  ),
-                ],
-                onItemSelected: (val) {
-                  switch (val) {
-                    case 1:
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => SeedPage()));
-                      break;
-                  }
-                },
+                  ],
+                  onItemSelected: (val) {
+                    switch (val) {
+                      case 1:
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => SeedPage()));
+                        break;
+                    }
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
+          body: child,
         ),
-        body: LoginPage(),
       ),
     );
   }

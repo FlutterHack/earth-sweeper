@@ -4,20 +4,18 @@ import 'package:flutter/material.dart';
 import 'globals.dart';
 
 class TextField95 extends StatefulWidget {
-  // TODO: Expose more properties from TextField
-  const TextField95({
-    Key key,
-    this.controller,
-  }) : super(key: key);
+  const TextField95({Key key, this.controller, this.inputType, this.maxLength})
+      : super(key: key);
 
   final TextEditingController controller;
+  final TextInputType inputType;
+  final int maxLength;
 
   @override
   _TextField95State createState() => _TextField95State();
 }
 
 class _TextField95State extends State<TextField95> {
-
   @override
   Widget build(BuildContext context) {
     return Elevation95(
@@ -30,6 +28,11 @@ class _TextField95State extends State<TextField95> {
           color: Flutter95.white,
           child: TextField(
             controller: widget.controller,
+            keyboardType: widget.inputType,
+            maxLength: widget.maxLength,
+            buildCounter: (BuildContext context,
+                    {int currentLength, int maxLength, bool isFocused}) =>
+                null,
             decoration: InputDecoration(
               isDense: true,
               border: InputBorder.none,

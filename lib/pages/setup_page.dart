@@ -1,7 +1,8 @@
+import 'package:earthsweeper/models/game.dart';
+import 'package:earthsweeper/providers/game_settings_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../widgets/windows95/flutter95.dart';
-import '../widgets/windows95/flutter95.dart';
 import '../widgets/windows95/flutter95.dart';
 
 class SetupPage extends StatefulWidget {
@@ -11,6 +12,34 @@ class SetupPage extends StatefulWidget {
 
 class _SetupPageState extends State<SetupPage> {
   int _selected = 0;
+  String errorText = "";
+  TextEditingController heightController;
+  TextEditingController minesController;
+  TextEditingController widthController;
+
+  @override
+  void initState() {
+    super.initState();
+    _selected = Provider.of<GameSettingsProvider>(context, listen: false)
+        .settings
+        .type
+        .index;
+    heightController = TextEditingController(
+        text: Provider.of<GameSettingsProvider>(context, listen: false)
+            .settings
+            .height
+            .toString());
+    widthController = TextEditingController(
+        text: Provider.of<GameSettingsProvider>(context, listen: false)
+            .settings
+            .width
+            .toString());
+    minesController = TextEditingController(
+        text: Provider.of<GameSettingsProvider>(context, listen: false)
+            .settings
+            .mineCount
+            .toString());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +83,10 @@ class _SetupPageState extends State<SetupPage> {
                             onChanged: (int val) {
                               setState(() {
                                 _selected = val;
+                                Provider.of<GameSettingsProvider>(context,
+                                        listen: false)
+                                    .changeSettings(
+                                        GameType.beginner, 9, 9, 10);
                               });
                             }),
                       ),
@@ -83,6 +116,10 @@ class _SetupPageState extends State<SetupPage> {
                             onChanged: (int val) {
                               setState(() {
                                 _selected = val;
+                                Provider.of<GameSettingsProvider>(context,
+                                        listen: false)
+                                    .changeSettings(
+                                        GameType.intermediate, 16, 16, 40);
                               });
                             }),
                       ),
@@ -112,6 +149,10 @@ class _SetupPageState extends State<SetupPage> {
                             onChanged: (int val) {
                               setState(() {
                                 _selected = val;
+                                Provider.of<GameSettingsProvider>(context,
+                                        listen: false)
+                                    .changeSettings(
+                                        GameType.expert, 16, 30, 90);
                               });
                             }),
                       ),
@@ -146,25 +187,95 @@ class _SetupPageState extends State<SetupPage> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(right: 16.0),
-                        child: TextField95(),
+                        child: TextField95(
+                          controller: heightController,
+                          inputType: TextInputType.number,
+                          maxLength: 2,
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(right: 16.0),
-                        child: TextField95(),
+                        child: TextField95(
+                          controller: widthController,
+                          inputType: TextInputType.number,
+                          maxLength: 2,
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(right: 16.0),
-                        child: TextField95(),
+                        child: TextField95(
+                          controller: minesController,
+                          inputType: TextInputType.number,
+                          maxLength: 3,
+                        ),
                       ),
                     ]),
                   ],
                 ),
+                if (errorText.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(right: 16.0),
+                    child: Text(
+                      errorText,
+                      style: Flutter95.textStyle,
+                    ),
+                  ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Button95(
                     child: Text("Save"),
                     onTap: () {
-                      print("Button clicked");
+                      var type, width, height, mines;
+                      if (_selected == 3 &&
+                          (widthController.text.isEmpty ||
+                              heightController.text.isEmpty ||
+                              minesController.text.isEmpty)) {
+                        setState(() {
+                          errorText = "Custom inputs cannot be empty!";
+                        });
+                        return;
+                      }
+                      switch (_selected) {
+                        case 0:
+                          type = GameType.beginner;
+                          width = 9;
+                          height = 9;
+                          mines = 10;
+                          break;
+                        case 1:
+                          type = GameType.intermediate;
+                          width = 16;
+                          height = 16;
+                          mines = 40;
+                          break;
+                        case 2:
+                          type = GameType.expert;
+                          width = 30;
+                          height = 16;
+                          mines = 99;
+                          break;
+                        case 3:
+                          type = GameType.custom;
+                          width = int.tryParse(widthController.text);
+                          height = int.tryParse(heightController.text);
+                          mines = int.tryParse(minesController.text);
+                          break;
+                      }
+                      if (_selected == 3 &&
+                          (width == null || height == null || mines == null)) {
+                        setState(() {
+                          errorText = "Something wrong with the inputs!";
+                        });
+                        return;
+                      } else {
+                        setState(() {
+                          errorText = "";
+                        });
+                      }
+
+                      Provider.of<GameSettingsProvider>(context, listen: false)
+                          .changeSettings(type, width, height, mines);
+                      Navigator.pop(context);
                     },
                   ),
                 )
