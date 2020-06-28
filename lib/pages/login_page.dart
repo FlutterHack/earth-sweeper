@@ -1,3 +1,4 @@
+import 'package:earthsweeper/constants/values.dart';
 import 'package:earthsweeper/constants/win95_page_transition.dart';
 import 'package:earthsweeper/pages/game_page.dart';
 import 'package:earthsweeper/providers/game_settings_provider.dart';
@@ -31,6 +32,8 @@ class LoginPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Button95(
+                height: UI_PRIMARY_BUTTON_HEIGHT,
+                width: UI_PRIMARY_BUTTON_WIDTH,
                 child: Text("Play"),
                 onTap: () {
                   Navigator.of(context).push(Win95Transition(widget: GamePage()));

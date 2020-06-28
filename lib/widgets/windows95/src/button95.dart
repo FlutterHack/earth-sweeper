@@ -8,7 +8,8 @@ class Button95 extends StatefulWidget {
     this.child,
     this.padding = const EdgeInsets.symmetric(vertical: 4, horizontal: 20),
     this.height = 30,
-    Key key, this.width,
+    this.width = 30,
+    Key key,
   }) : super(key: key);
 
   final Function() onTap;
@@ -28,6 +29,7 @@ class _Button95State extends State<Button95> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: widget.height,
+      width: widget.width,
       child: GestureDetector(
         onTap: widget.onTap,
         onTapDown: (details) => setState(() {
@@ -48,15 +50,17 @@ class _Button95State extends State<Button95> {
             decoration: _tapped
                 ? Flutter95.pressedDecoration
                 : Flutter95.elevatedDecoration,
-            child: DefaultTextStyle(
-              style: widget.onTap != null
-                  ? Flutter95.textStyle
-                  : Flutter95.disabledTextStyle,
-              child: Padding(
-                padding: _tapped
-                    ? const EdgeInsets.only(top: 1.0, left: 1.0)
-                    : const EdgeInsets.all(0.0),
-                child: widget.child,
+            child: Center(
+              child: DefaultTextStyle(
+                style: widget.onTap != null
+                    ? Flutter95.textStyle
+                    : Flutter95.disabledTextStyle,
+                child: Padding(
+                  padding: _tapped
+                      ? const EdgeInsets.only(top: 1.0, left: 1.0)
+                      : const EdgeInsets.all(0.0),
+                  child: widget.child,
+                ),
               ),
             ),
           ),

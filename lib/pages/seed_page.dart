@@ -1,3 +1,4 @@
+import 'package:earthsweeper/constants/values.dart';
 import 'package:earthsweeper/providers/seed_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +26,7 @@ class _SeedPageState extends State<SeedPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(UI_MARGIN),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -39,13 +40,15 @@ class _SeedPageState extends State<SeedPage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(UI_MARGIN),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text("Watch Ad to earn 100 Seeds",
                               style: Flutter95.textStyle),
                           Button95(
+                            height: UI_SECONDARY_BUTTON_HEIGHT,
+                            width: UI_SECONDARY_BUTTON_WIDTH,
                             onTap: () {
                               seedModel.increase(100);
                               setState(() {
@@ -58,13 +61,15 @@ class _SeedPageState extends State<SeedPage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(UI_MARGIN),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text("Purchase 500 seeds",
                               style: Flutter95.textStyle),
                           Button95(
+                            height: UI_SECONDARY_BUTTON_HEIGHT,
+                            width: UI_SECONDARY_BUTTON_WIDTH,
                             onTap: () {
                               seedModel.increase(500);
                               setState(() {
@@ -77,13 +82,15 @@ class _SeedPageState extends State<SeedPage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(UI_MARGIN),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text("Purchase 1500 Seeds",
                               style: Flutter95.textStyle),
                           Button95(
+                            height: UI_SECONDARY_BUTTON_HEIGHT,
+                            width: UI_SECONDARY_BUTTON_WIDTH,
                             onTap: () {
                               seedModel.increase(1500);
                               setState(() {
@@ -110,39 +117,45 @@ class _SeedPageState extends State<SeedPage> {
                     //   ),
                     // ),
                     Container(
-                      margin: const EdgeInsets.all(8.0),
+                      margin: const EdgeInsets.all(UI_MARGIN),
                       child: Elevation95(
-                        child: Center(
-                          child: Column(
-                            children: <Widget>[
-                              Image.asset(
-                                'assets/plant_tree.png',
-                                height: 200,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text("Plant a Tree for 2000 seeds",
-                                    style: Flutter95.textStyle),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Button95(
-                                  child: Text("Plant"),
-                                  onTap: () {
-                                    if (seedModel.isEnoughSeed(2000)) {
-                                      setState(() {
-                                        errorText = "";
-                                      });
-                                      seedModel.decrease(2000);
-                                    } else {
-                                      setState(() {
-                                        errorText = "Not Enough Seeds";
-                                      });
-                                    }
-                                  },
+                        type: Elevation95Type.down,
+                        child: Padding(
+                          padding: const EdgeInsets.all(UI_MARGIN),
+                          child: Center(
+                            child: Column(
+                              children: <Widget>[
+                                Image.asset(
+                                  'assets/plant_tree.png',
+                                  height: 200,
                                 ),
-                              ),
-                            ],
+                                Padding(
+                                  padding: const EdgeInsets.all(UI_MARGIN),
+                                  child: Text("Plant a Tree for 2000 seeds",
+                                      style: Flutter95.textStyle),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(UI_MARGIN),
+                                  child: Button95(
+                                    height: UI_PRIMARY_BUTTON_HEIGHT,
+                                    width: UI_PRIMARY_BUTTON_WIDTH,
+                                    child: Text("Plant"),
+                                    onTap: () {
+                                      if (seedModel.isEnoughSeed(2000)) {
+                                        setState(() {
+                                          errorText = "";
+                                        });
+                                        seedModel.decrease(2000);
+                                      } else {
+                                        setState(() {
+                                          errorText = "Not Enough Seeds";
+                                        });
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
