@@ -18,12 +18,17 @@ class MineSweeper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
+    // Actual width of screen, will help us determining area diemensions
+    double screenWidth = MediaQuery.of(context).size.width;
 
     // Build notifier provider with game settings
     return ChangeNotifierProvider<MineSweeperProvider>(
       create: (BuildContext context) => MineSweeperProvider(gameModel),
       builder: (BuildContext context, Widget child) {
+        // There are 4 borders between screen borders, extract them from width
+        double areaWidth = screenWidth - UI_MARGIN*2 - UI_BORDER_THICKNESS*4;
+
+        // The provider
         MineSweeperProvider provider = Provider.of<MineSweeperProvider>(context);
 
         // Build mine providers
@@ -63,21 +68,21 @@ class MineSweeper extends StatelessWidget {
                  Elevation95(
                   type: Elevation95Type.down,
                    child: Container(
-                     width: screenwidth - UI_MARGIN * 2,
-                     height: screenwidth - UI_MARGIN * 2,
+                     width: areaWidth,
+                     height: areaWidth,
                      child: Consumer<MineSweeperProvider>(
                       builder: (BuildContext context, MineSweeperProvider value, Widget child) {
                         return Column(
                             mainAxisSize: MainAxisSize.min,
                             children: provider.points != null
-                            ? provider.points.map((row){
+                            ? provider.points.map((row){                        // Map all points to mine blocks
                                 return Row(
                                   mainAxisSize: MainAxisSize.min,
-                                  children: row.map((block){
-                                    return ChangeNotifierProvider<MineBlockProvider>(
-                                      create: (BuildContext context) => block,
+                                  children: row.map((blockProvider){
+                                    return ChangeNotifierProvider<MineBlockProvider>( // Define provider in here, blockProvider already defined in the MineSweeperProvider
+                                      create: (BuildContext context) => blockProvider,
                                       builder: (c, v){
-                                        return MineBlock();
+                                        return MineBlock(blockDiemension: areaWidth/row.length,);
                                       },
                                     );
                                   }).toList(),

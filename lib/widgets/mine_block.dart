@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MineBlock extends StatelessWidget {
+  final double blockDiemension;
 
-  const MineBlock({Key key}) : super(key: key);
+  const MineBlock({Key key, this.blockDiemension = MINE_POINT_DIMENSION}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +16,8 @@ class MineBlock extends StatelessWidget {
       builder: (BuildContext context, MineBlockProvider provider, Widget child) {
         return !provider.opened
             ? Container(
-              width: MINE_POINT_DIMENSION,
-              height: MINE_POINT_DIMENSION,
+              width: blockDiemension,
+              height: blockDiemension,
               decoration: provider.tabbed
                   ? Flutter95.pressedDecorationOutside
                   : Flutter95.elevatedDecorationOutside,

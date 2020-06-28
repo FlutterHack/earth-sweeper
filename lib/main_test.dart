@@ -24,8 +24,8 @@ class _TestAppState extends State<TestApp> {
         home: Scaffold(
           body: Container(
               child: MineSweeper(
-            gameModel: Game(GameType.custom, 10, 10, 5),
-          )),
-        ));
+                gameModel: Game(GameType.custom, 10, 10, 5),
+              )),
+            ));
   }
 }
