@@ -29,7 +29,7 @@ class MineSweeper extends StatelessWidget {
             Provider.of<MineSweeperProvider>(context);
 
         // Build mine block providers
-        provider.buildMineBlockProviders();
+        provider.buildMineBlockControllers();
 
         // There are 4 borders between screen borders, extract them from width
         double areaWidth =

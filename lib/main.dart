@@ -89,8 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                           break;
                         case 3:
-                          Navigator.of(context)
-                              .push(Win95Transition(widget: SetupPage()));
+                          Navigator.of(context).push(Win95Transition(widget: SetupPage()));
 
                           break;
                       }
@@ -99,22 +98,22 @@ class _MyHomePageState extends State<MyHomePage> {
                       MenuItem95(
                         value: 0,
                         label: 'Beginner' +
-                            (model.settings.type.index == 0 ? ' ✓' : ''),
+                            (model.type.index == 0 ? ' ✓' : ''),
                       ),
                       MenuItem95(
                         value: 1,
                         label: 'Medium' +
-                            (model.settings.type.index == 1 ? ' ✓' : ''),
+                            (model.type.index == 1 ? ' ✓' : ''),
                       ),
                       MenuItem95(
                         value: 2,
                         label: 'Expert' +
-                            (model.settings.type.index == 2 ? ' ✓' : ''),
+                            (model.type.index == 2 ? ' ✓' : ''),
                       ),
                       MenuItem95(
                         value: 3,
                         label: 'Custom' +
-                            (model.settings.type.index == 3 ? ' ✓' : ''),
+                            (model.type.index == 3 ? ' ✓' : ''),
                       ),
                     ]),
               ),
