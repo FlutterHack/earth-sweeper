@@ -72,11 +72,11 @@ class MineSweeper extends StatelessWidget {
                      height: areaWidth,
                      child: Consumer<MineSweeperProvider>(
                       builder: (BuildContext context, MineSweeperProvider value, Widget child) {
-                        return Column(
+                        return Row(
                             mainAxisSize: MainAxisSize.min,
                             children: provider.points != null
                             ? provider.points.map((row){                        // Map all points to mine blocks
-                                return Row(
+                                return Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: row.map((blockProvider){
                                     return ChangeNotifierProvider<MineBlockProvider>( // Define provider in here, blockProvider already defined in the MineSweeperProvider

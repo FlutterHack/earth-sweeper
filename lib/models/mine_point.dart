@@ -1,14 +1,20 @@
 class MinePoint {
+  final int x;
+  final int y;
+
   String mineAsset;
-  bool isMined;
-  int nearbyCount;
-  int x;
-  int y;
+  int nearbyCount = 0;
 
-  bool opened;
-  bool flagged;
-  bool mined;
+  bool opened = true; // Test value // TODO: replace with false
+  bool flagged = false;
+  bool mined = false;
+  bool exploded = false;
+  bool exposed = false;
 
-  MinePoint(this.x, this.y, this.mineAsset, this.isMined, this.nearbyCount,
-      {this.opened = false, this.flagged = false, this.mined});
+  MinePoint(this.x, this.y, {this.opened = true, this.flagged = false, this.mined = false});
+
+  void increaseNearbyCount(){
+    if(!mined)
+      nearbyCount++;
+  }
 }

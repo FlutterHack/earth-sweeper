@@ -2,7 +2,12 @@ import 'package:earthsweeper/models/game.dart';
 import 'package:flutter/material.dart';
 
 class GameSettingsProvider extends ChangeNotifier {
-  Game settings = Game(GameType.beginner, 9, 9, 10);
+  Game settings = Game(
+    type: GameType.custom,
+    width: 10,
+    height: 10,
+    mineCount: 10,
+  );
 
   changeSettings(GameType type, int width, int height, int mines) {
     settings.width = width;

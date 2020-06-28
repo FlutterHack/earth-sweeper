@@ -30,7 +30,12 @@ class MineBlock extends StatelessWidget {
             : Container(
                 height: MINE_POINT_DIMENSION,
                 width: MINE_POINT_DIMENSION,
-                child: Image.asset(provider.blockAsset ?? ""),
+                decoration: Flutter95.pressedDecoration,
+                child: Image.asset(provider.blockAsset ?? "",
+                  height: blockDiemension,
+                  width: blockDiemension,
+                  fit: BoxFit.fill,
+                filterQuality: FilterQuality.none),
               );
       },
     );
