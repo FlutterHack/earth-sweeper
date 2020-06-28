@@ -8,6 +8,7 @@ import 'package:earthsweeper/providers/seed_provider.dart';
 import 'package:earthsweeper/widgets/windows95/src/alert95.dart';
 import 'package:earthsweeper/widgets/windows95/src/button95.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'widgets/windows95/flutter95.dart';
@@ -20,6 +21,8 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIOverlays([]);
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => GameSettingsProvider()),

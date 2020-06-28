@@ -20,14 +20,16 @@ class LCDPanel extends StatelessWidget {
                 Image.asset(
                   "assets/lcd_panel/-.png",
                   height: height,
-                  fit: BoxFit.fill,)),
+                  fit: BoxFit.fill,
+                  filterQuality: FilterQuality.none,)),
           ),
           Row(
             children: List.generate(length, (index) =>
                 Image.asset(
                   "assets/lcd_panel/${number.toString().padLeft(length, "0")[index]}.png",
                   height: height,
-                  fit: BoxFit.fill,)),
+                  fit: BoxFit.fill,
+                  filterQuality: FilterQuality.none,)),
           ),
         ]
       ),

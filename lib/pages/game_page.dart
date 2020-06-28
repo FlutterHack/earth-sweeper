@@ -8,16 +8,16 @@ class GamePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold95(
-      title: "Game",
-      body: Container(
-          child: MineSweeper(
-        gameModel: Game(
-          type: GameType.custom,
-          width: 5,
-          height: 20,
-          mineCount: 10,
-        ),
-      )),
-    ));
+          title: "Game",
+          body: Container(
+            child: MineSweeper(
+            gameModel: Game(
+              type: GameType.custom,
+              width: 10,
+              height: 10,
+              mineCount: 10,
+            ),
+        )),
+      ));
   }
 }

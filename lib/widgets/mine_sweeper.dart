@@ -65,6 +65,7 @@ class MineSweeper extends StatelessWidget {
                               provider.currentMoodAsset,
                               height: 30,
                               fit: BoxFit.fill,
+                              filterQuality: FilterQuality.none,
                             ),
                           ),
                           Selector<MineSweeperProvider, int>(
@@ -90,32 +91,34 @@ class MineSweeper extends StatelessWidget {
                   ),
                   // MINE FIELD
                   Expanded(
-                    child: Elevation95(
-                      type: Elevation95Type.down,
-                      child: SingleChildScrollView(
-                        child: Container(
-                          width: areaWidth,
-                          height: areaHeight,
-                          child: Consumer<MineSweeperProvider>(
-                            builder: (BuildContext context,
-                                MineSweeperProvider value, Widget child) {
-                              return Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: provider.points != null
-                                      ? provider.points.map((row) {
-                                          // Map all points to mine blocks
-                                          return Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: row.map((blockProvider) {
-                                              return MineBlock(
-                                                blockDiemension: blockDimension,
-                                                blockController: blockProvider,
-                                              );
-                                            }).toList(),
-                                          );
-                                        }).toList()
-                                      : null);
-                            },
+                    child: Center(
+                      child: Elevation95(
+                        type: Elevation95Type.down,
+                        child: SingleChildScrollView(
+                          child: Container(
+                            width: areaWidth,
+                            height: areaHeight,
+                            child: Consumer<MineSweeperProvider>(
+                              builder: (BuildContext context,
+                                  MineSweeperProvider value, Widget child) {
+                                return Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: provider.points != null
+                                        ? provider.points.map((row) {
+                                            // Map all points to mine blocks
+                                            return Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: row.map((blockProvider) {
+                                                return MineBlock(
+                                                  blockDiemension: blockDimension,
+                                                  blockController: blockProvider,
+                                                );
+                                              }).toList(),
+                                            );
+                                          }).toList()
+                                        : null);
+                              },
+                            ),
                           ),
                         ),
                       ),
