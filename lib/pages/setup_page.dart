@@ -248,14 +248,14 @@ class _SetupPageState extends State<SetupPage> {
                           break;
                         case 1:
                           type = GameType.intermediate;
-                          width = 16;
-                          height = 16;
-                          mines = 40;
+                          width = 12;
+                          height = 25;
+                          mines = 60;
                           break;
                         case 2:
                           type = GameType.expert;
-                          width = 30;
-                          height = 16;
+                          width = 16;
+                          height = 30;
                           mines = 99;
                           break;
                         case 3:

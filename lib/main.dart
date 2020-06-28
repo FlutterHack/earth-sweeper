@@ -81,10 +81,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           model.changeSettings(GameType.beginner, 9, 9, 10);
                           break;
                         case 1:
-                          model.changeSettings(GameType.intermediate, 16, 16, 40);
+                          model.changeSettings(
+                              GameType.intermediate, 12, 25, 60);
                           break;
                         case 2:
-                          model.changeSettings(GameType.expert, 30, 16, 990);
+                          model.changeSettings(GameType.expert, 16, 30, 99);
 
                           break;
                         case 3:
