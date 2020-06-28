@@ -41,7 +41,7 @@ class _MineBlock extends State<MineBlock> {
                 if(!widget.blockController.disabled){
                   widget.blockController.tabbed = false;
                   Provider.of<MineSweeperProvider>(context, listen: false).excitement = false;
-                  Provider.of<MineSweeperProvider>(context, listen: false).blockClick(widget.blockController);
+                  Provider.of<MineSweeperProvider>(context, listen: false).blockClick(widget.blockController, context);
                 }
               },
               onDoubleTap: (){

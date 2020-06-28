@@ -1,3 +1,4 @@
+import 'package:earthsweeper/constants/values.dart';
 import 'package:earthsweeper/models/game.dart';
 import 'package:earthsweeper/providers/game_settings_provider.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class _SetupPageState extends State<SetupPage> {
       child: Scaffold95(
         title: 'Game Setup',
         body: Container(
-            padding: const EdgeInsets.only(top: 16.0),
+            padding: const EdgeInsets.only(top: UI_MARGIN),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
@@ -186,7 +187,7 @@ class _SetupPageState extends State<SetupPage> {
                             }),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(right: 16.0),
+                        padding: const EdgeInsets.only(right: UI_MARGIN),
                         child: TextField95(
                           controller: heightController,
                           inputType: TextInputType.number,
@@ -194,7 +195,7 @@ class _SetupPageState extends State<SetupPage> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(right: 16.0),
+                        padding: const EdgeInsets.only(right: UI_MARGIN),
                         child: TextField95(
                           controller: widthController,
                           inputType: TextInputType.number,
@@ -202,7 +203,7 @@ class _SetupPageState extends State<SetupPage> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(right: 16.0),
+                        padding: const EdgeInsets.only(right: UI_MARGIN),
                         child: TextField95(
                           controller: minesController,
                           inputType: TextInputType.number,
@@ -214,15 +215,17 @@ class _SetupPageState extends State<SetupPage> {
                 ),
                 if (errorText.isNotEmpty)
                   Padding(
-                    padding: const EdgeInsets.only(right: 16.0),
+                    padding: const EdgeInsets.only(right: UI_MARGIN),
                     child: Text(
                       errorText,
                       style: Flutter95.textStyle,
                     ),
                   ),
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(UI_MARGIN),
                   child: Button95(
+                    height: UI_PRIMARY_BUTTON_HEIGHT,
+                    width: UI_PRIMARY_BUTTON_WIDTH,
                     child: Text("Save"),
                     onTap: () {
                       var type, width, height, mines;

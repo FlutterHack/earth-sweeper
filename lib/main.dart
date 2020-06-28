@@ -35,9 +35,9 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'Earth Sweeper',
         theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primaryColor: Flutter95.headerDark,
             visualDensity: VisualDensity.adaptivePlatformDensity,
             fontFamily: "MSSansSerif"),
         home: MyHomePage(title: 'Earth-Sweeper'),
