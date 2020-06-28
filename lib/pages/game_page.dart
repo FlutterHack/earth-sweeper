@@ -15,7 +15,7 @@ class GamePage extends StatelessWidget {
               type: GameType.custom,
               width: 10,
               height: 10,
-              mineCount: 10,
+              mineCount: 1,
             ),
         )),
       ));

@@ -101,6 +101,13 @@ class MineSweeperProvider extends ChangeNotifier{
       // Apply walk method to open all nonmined block
       openBlock(mineBlock.pointData.x, mineBlock.pointData.y, allowPassThoughNumber: true);
     }
+
+    if(checkWinState()){
+      // Set state
+      game.state = GameState.winner;
+
+      flagFieldAndFinish();
+    }
   }
 
   void decreaseFlagCount(){
@@ -110,6 +117,44 @@ class MineSweeperProvider extends ChangeNotifier{
     notifyListeners();
   }
 
+  bool checkWinState(){
+    bool checkBlockOpened(int x, int y){
+      if((x >= 0 && x < game.width) && (y >= 0 && y < game.height)){
+        return points[x][y].opened;
+      }
+      else{
+        return true;
+      }
+    }
+
+    for(MinePoint point in game.mines){
+      if (!checkBlockOpened(point.x - 1, point.y)) // West
+        return false;
+
+      if (!checkBlockOpened(point.x - 1, point.y - 1)) // North West
+        return false;
+
+      if (!checkBlockOpened(point.x, point.y - 1)) // North
+        return false;
+
+      if (!checkBlockOpened(point.x + 1, point.y - 1)) // North East
+        return false;
+
+      if (!checkBlockOpened(point.x + 1, point.y)) // East
+        return false;
+
+      if (!checkBlockOpened(point.x + 1, point.y + 1)) // South East
+        return false;
+
+      if (!checkBlockOpened(point.x, point.y + 1)) // South
+        return false;
+
+      if (!checkBlockOpened(point.x - 1, point.y + 1)) // South West
+        return false;
+    }
+
+    return true;
+  }
 
   void checkAndStartGame(){
     // Start timer if it didn't started yet
@@ -143,16 +188,33 @@ class MineSweeperProvider extends ChangeNotifier{
     }
   }
 
+  // Finish game for the blocks
   void exposeFieldAndFinish(){
     for (int x = 0; x < game.width; x++) {
       for (int y = 0; y < game.height; y++) {
-        MineBlockController point = points[x][y];
+        MineBlockController block = points[x][y];
 
-        if(!point.flagged && point.pointData.mined){
-          point.opened = true;
+        if(!block.flagged && block.pointData.mined){
+          block.opened = true;
         }
 
-        point.disabled = true;
+        block.disabled = true;
+      }
+    }
+  }
+
+
+  // Finish game for the blocks
+  void flagFieldAndFinish(){
+    for (int x = 0; x < game.width; x++) {
+      for (int y = 0; y < game.height; y++) {
+        MineBlockController block = points[x][y];
+
+        if(!block.flagged && block.pointData.mined){
+          block.flagged = true;
+        }
+
+        block.disabled = true;
       }
     }
   }

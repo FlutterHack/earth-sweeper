@@ -17,10 +17,16 @@ class Game {
   GameState state;
   GameType type;
 
+  // All points
   List<List<MinePoint>> points;
+
+  // Placed mines
+  List<MinePoint> mines;
 
   Game({@required this.type, @required this.height, @required this.width, @required this.mineCount, this.duration = 0, this.flagCount = 99, this.state = GameState.idle}) {
     points = [];
+    mines = [];
+
     // Build points and mines
     // TODO: Move this block to async
     for (int x = 0; x < width; x++) {
@@ -48,6 +54,9 @@ class Game {
 
   void placeMine(int randomX, int randomY){
     points[randomX][randomY].mined = true;
+
+    // Put that point to mines list, to access it later easily
+    mines.add(points[randomX][randomY]);
 
     // Increase nearby point's nearbyCount // That will save processing power
     increaseNearbyCount(randomX - 1, randomY); // West

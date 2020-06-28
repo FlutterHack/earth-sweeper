@@ -21,7 +21,12 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Set system related stuff for best gaming
     SystemChrome.setEnabledSystemUIOverlays([]);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
 
     return MultiProvider(
       providers: [
@@ -35,7 +40,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
             visualDensity: VisualDensity.adaptivePlatformDensity,
             fontFamily: "MSSansSerif"),
-        home: MyHomePage(title: 'Flutter Demo Home Page'),
+        home: MyHomePage(title: 'Earth-Sweeper'),
       ),
     );
   }
@@ -76,8 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           model.changeSettings(GameType.beginner, 9, 9, 10);
                           break;
                         case 1:
-                          model.changeSettings(
-                              GameType.intermediate, 16, 16, 40);
+                          model.changeSettings(GameType.intermediate, 16, 16, 40);
                           break;
                         case 2:
                           model.changeSettings(GameType.expert, 30, 16, 990);

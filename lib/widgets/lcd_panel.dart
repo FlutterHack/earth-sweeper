@@ -17,11 +17,11 @@ class LCDPanel extends StatelessWidget {
         children: [
           Row(
             children: List.generate(length, (index) =>
-                Image.asset(
-                  "assets/lcd_panel/-.png",
-                  height: height,
-                  fit: BoxFit.fill,
-                  filterQuality: FilterQuality.none,)),
+          Image.asset(
+          "assets/lcd_panel/-.png",
+          height: height,
+          fit: BoxFit.fill,
+          filterQuality: FilterQuality.none,)),
           ),
           Row(
             children: List.generate(length, (index) =>
