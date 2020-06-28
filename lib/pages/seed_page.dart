@@ -91,7 +91,7 @@ class SeedPage extends StatelessWidget {
                             child: Column(
                               children: <Widget>[
                                 Image.asset(
-                                  'assets/tree.png',
+                                  'assets/plant_tree.png',
                                   height: 200,
                                 ),
                                 Padding(

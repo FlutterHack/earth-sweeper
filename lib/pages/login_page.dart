@@ -21,7 +21,7 @@ class LoginPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Image.asset(
-                'assets/tree.png',
+                'assets/w95_tree.png',
                 height: 200,
               ),
             ),
