@@ -24,9 +24,21 @@ class _SetupPageState extends State<SetupPage> {
         .settings
         .type
         .index;
-    heightController = TextEditingController();
-    widthController = TextEditingController();
-    minesController = TextEditingController();
+    heightController = TextEditingController(
+        text: Provider.of<GameSettingsProvider>(context, listen: false)
+            .settings
+            .height
+            .toString());
+    widthController = TextEditingController(
+        text: Provider.of<GameSettingsProvider>(context, listen: false)
+            .settings
+            .width
+            .toString());
+    minesController = TextEditingController(
+        text: Provider.of<GameSettingsProvider>(context, listen: false)
+            .settings
+            .mineCount
+            .toString());
   }
 
   @override
