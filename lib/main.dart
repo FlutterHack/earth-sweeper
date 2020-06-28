@@ -97,23 +97,23 @@ class _MyHomePageState extends State<MyHomePage> {
                     items: [
                       MenuItem95(
                         value: 0,
-                        label: 'Beginner' +
-                            (model.type.index == 0 ? ' ✓' : ''),
+                        label: 'Beginner',
+                        checked: model.type.index == 0
                       ),
                       MenuItem95(
                         value: 1,
-                        label: 'Medium' +
-                            (model.type.index == 1 ? ' ✓' : ''),
+                        label: 'Medium',
+                        checked: model.type.index == 1
                       ),
                       MenuItem95(
                         value: 2,
-                        label: 'Expert' +
-                            (model.type.index == 2 ? ' ✓' : ''),
+                        label: 'Expert',
+                        checked: model.type.index == 2,
                       ),
                       MenuItem95(
                         value: 3,
-                        label: 'Custom' +
-                            (model.type.index == 3 ? ' ✓' : ''),
+                        label: 'Custom',
+                        checked: model.type.index == 3,
                       ),
                     ]),
               ),
