@@ -12,8 +12,20 @@ Future<T> showMenu95<T>(
       value: item.value,
       textStyle: Flutter95.textStyle,
       height: 32,
-      child: Text(
-        item.label,
+      child: Row(
+        children: <Widget>[
+          Container(
+            height: 10,
+            width: 10,
+            child: item.checked ? Image.asset("assets/selected_menu.png", height: 10, width: 10,) : null,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Text(
+              item.label,
+            ),
+          ),
+        ],
       ),
     );
   }).toList();
@@ -59,9 +71,11 @@ class MenuItem95<T> {
   MenuItem95({
     @required this.value,
     @required this.label,
+    this.checked = false,
   })  : assert(value != null),
         assert(label != null);
 
   final T value;
   final T label;
+  final bool checked;
 }
