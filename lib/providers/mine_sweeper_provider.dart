@@ -57,7 +57,7 @@ class MineSweeperProvider extends ChangeNotifier{
     _counter = game.duration;
   }
 
-  void buildMineBlockProviders(){
+  void buildMineBlockControllers(){
     if(points != null)
       return;
 
@@ -102,9 +102,10 @@ class MineSweeperProvider extends ChangeNotifier{
       openBlock(mineBlock.pointData.x, mineBlock.pointData.y, allowPassThoughNumber: true);
     }
 
+    // Check win state of the game
     if(checkWinState()){
       // Set state
-      game.state = GameState.winner;
+      game.state = GameState.winner;  // You win !!!
 
       flagFieldAndFinish();
     }
@@ -203,7 +204,6 @@ class MineSweeperProvider extends ChangeNotifier{
     }
   }
 
-
   // Finish game for the blocks
   void flagFieldAndFinish(){
     for (int x = 0; x < game.width; x++) {
@@ -217,5 +217,11 @@ class MineSweeperProvider extends ChangeNotifier{
         block.disabled = true;
       }
     }
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 }
