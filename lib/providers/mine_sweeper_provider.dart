@@ -236,6 +236,7 @@ class MineSweeperProvider extends ChangeNotifier {
 
   void showAlertDialog(BuildContext context) {
     Alert95(
+      style: AlertStyle(isCloseButton: false),
       title: 'Congratulations!',
       content: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -251,6 +252,15 @@ class MineSweeperProvider extends ChangeNotifier {
           ],
         ),
       ),
+      buttons: [
+        Button95(
+          child: Text("Return Home"),
+          onTap: () {
+            Navigator.of(context).pop();
+            Navigator.of(context).pop();
+          },
+        )
+      ],
       closeFunction: () {
         print('Closing');
         Navigator.of(context)

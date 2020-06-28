@@ -20,9 +20,8 @@ class _SetupPageState extends State<SetupPage> {
   @override
   void initState() {
     super.initState();
-    _selected = Provider.of<GameSettingsProvider>(context, listen: false)
-        .type
-        .index;
+    _selected =
+        Provider.of<GameSettingsProvider>(context, listen: false).type.index;
     heightController = TextEditingController(
         text: Provider.of<GameSettingsProvider>(context, listen: false)
             .height

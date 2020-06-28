@@ -73,60 +73,61 @@ class Alert95 {
   // Alert dialog content widget
   Widget _buildDialog() {
     return WillPopScope(
-      onWillPop: () async{
-        if(closeFunction != null && style.isCloseButton){
+      onWillPop: () async {
+        if (closeFunction != null && style.isCloseButton) {
           closeFunction();
           return true;
-        }
-        else{
+        } else {
           return false;
         }
       },
       child: Center(
         child: Container(
-          height: 100,
-          width: 200,
+          height: 200,
+          width: 300,
           child: Elevation95(
             child: SingleChildScrollView(
               child: Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      WindowHeader95(title: title ?? "",),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(
-                            20, (style.isCloseButton ? 0 : 20), 20, 0),
-                        child: Column(
-                          children: <Widget>[
-                            _getImage(),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            SizedBox(
-                              height: description == null ? 5 : 10,
-                            ),
-                            description == null
-                                ? Container()
-                                : Text(
-                                    description,
-                                    style: style.descStyle,
-                                    textAlign: TextAlign.center,
-                                  ),
-                            content == null ? Container() : content,
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: _getButtons(),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    WindowHeader95(
+                      title: title ?? "",
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(
+                          20, (style.isCloseButton ? 0 : 20), 20, 0),
+                      child: Column(
+                        children: <Widget>[
+                          _getImage(),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          SizedBox(
+                            height: description == null ? 5 : 10,
+                          ),
+                          description == null
+                              ? Container()
+                              : Text(
+                                  description,
+                                  style: style.descStyle,
+                                  textAlign: TextAlign.center,
+                                ),
+                          content == null ? Container() : content,
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: _getButtons(),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
                 ),
               ),
+            ),
           ),
         ),
-        ),
+      ),
     );
   }
 
@@ -155,9 +156,7 @@ class Alert95 {
         },
       );
     } else {
-      expandedButtons.add(
-        Row()
-      );
+      expandedButtons.add(Row());
     }
 
     return expandedButtons;
