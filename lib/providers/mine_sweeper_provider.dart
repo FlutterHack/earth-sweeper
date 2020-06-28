@@ -1,15 +1,18 @@
 import 'dart:async';
 
+import 'package:earthsweeper/constants/values.dart';
 import 'package:earthsweeper/constants/win95_page_transition.dart';
 import 'package:earthsweeper/main.dart';
 import 'package:earthsweeper/models/game.dart';
 import 'package:earthsweeper/models/mine_point.dart';
 import 'package:earthsweeper/pages/login_page.dart';
+import 'package:earthsweeper/providers/seed_provider.dart';
 import 'package:earthsweeper/widgets/windows95/flutter95.dart';
 import 'package:earthsweeper/widgets/windows95/src/alert95.dart';
 import 'package:earthsweeper/widgets/windows95/src/alert95/alert_style.dart';
 import 'package:earthsweeper/widgets/windows95/src/alert95/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../controllers/mine_block_controller.dart';
 
@@ -105,6 +108,8 @@ class MineSweeperProvider extends ChangeNotifier {
       game.state = GameState.winner; // You win !!!
 
       showAlertDialog(context);
+      Provider.of<SeedProvider>(context, listen: false)
+          .increase(game.mineCount);
 
       flagFieldAndFinish();
     }
@@ -238,11 +243,13 @@ class MineSweeperProvider extends ChangeNotifier {
     Alert95(
       style: AlertStyle(isCloseButton: false),
       title: 'Congratulations!',
+      image: Image.asset('assets/winner.png'),
       content: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(bottom: 16.0),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Text("You won ${game.mineCount}", style: Flutter95.textStyle),
             Image.asset(
@@ -254,7 +261,9 @@ class MineSweeperProvider extends ChangeNotifier {
       ),
       buttons: [
         Button95(
-          child: Text("Return Home"),
+          height: UI_SECONDARY_BUTTON_HEIGHT,
+          width: UI_SECONDARY_BUTTON_WIDTH,
+          child: Text("Home"),
           onTap: () {
             Navigator.of(context).pop();
             Navigator.of(context).pop();

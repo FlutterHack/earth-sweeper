@@ -83,8 +83,8 @@ class Alert95 {
       },
       child: Center(
         child: Container(
-          height: 200,
-          width: 300,
+          height: 170,
+          width: 235,
           child: Elevation95(
             child: SingleChildScrollView(
               child: Container(

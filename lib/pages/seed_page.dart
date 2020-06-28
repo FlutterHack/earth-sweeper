@@ -44,13 +44,13 @@ class _SeedPageState extends State<SeedPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text("Watch Ad to earn 100 Seeds",
+                          Text("Watch Ad to earn $AD_PURCHASE Seeds",
                               style: Flutter95.textStyle),
                           Button95(
                             height: UI_SECONDARY_BUTTON_HEIGHT,
                             width: UI_SECONDARY_BUTTON_WIDTH,
                             onTap: () {
-                              seedModel.increase(100);
+                              seedModel.increase(AD_PURCHASE);
                               setState(() {
                                 errorText = "";
                               });
@@ -65,13 +65,13 @@ class _SeedPageState extends State<SeedPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text("Purchase 500 seeds",
+                          Text("Purchase $SMALL_PURCHASE seeds",
                               style: Flutter95.textStyle),
                           Button95(
                             height: UI_SECONDARY_BUTTON_HEIGHT,
                             width: UI_SECONDARY_BUTTON_WIDTH,
                             onTap: () {
-                              seedModel.increase(500);
+                              seedModel.increase(SMALL_PURCHASE);
                               setState(() {
                                 errorText = "";
                               });
@@ -86,13 +86,13 @@ class _SeedPageState extends State<SeedPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text("Purchase 1500 Seeds",
+                          Text("Purchase $BIG_PURCHASE Seeds",
                               style: Flutter95.textStyle),
                           Button95(
                             height: UI_SECONDARY_BUTTON_HEIGHT,
                             width: UI_SECONDARY_BUTTON_WIDTH,
                             onTap: () {
-                              seedModel.increase(1500);
+                              seedModel.increase(BIG_PURCHASE);
                               setState(() {
                                 errorText = "";
                               });
@@ -131,7 +131,8 @@ class _SeedPageState extends State<SeedPage> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(UI_MARGIN),
-                                  child: Text("Plant a Tree for 2000 seeds",
+                                  child: Text(
+                                      "Plant a Tree for $TREE_COST seeds",
                                       style: Flutter95.textStyle),
                                 ),
                                 Padding(
@@ -141,11 +142,11 @@ class _SeedPageState extends State<SeedPage> {
                                     width: UI_PRIMARY_BUTTON_WIDTH,
                                     child: Text("Plant"),
                                     onTap: () {
-                                      if (seedModel.isEnoughSeed(2000)) {
+                                      if (seedModel.isEnoughSeed(TREE_COST)) {
                                         setState(() {
                                           errorText = "";
                                         });
-                                        seedModel.decrease(2000);
+                                        seedModel.decrease(TREE_COST);
                                       } else {
                                         setState(() {
                                           errorText = "Not Enough Seeds";
