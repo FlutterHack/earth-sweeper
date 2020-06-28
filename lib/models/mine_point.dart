@@ -1,9 +1,14 @@
 class MinePoint {
-  final String mineAsset;
-  final bool isMined;
-  final int nearbyCount;
-  final int x;
-  final int y;
+  String mineAsset;
+  bool isMined;
+  int nearbyCount;
+  int x;
+  int y;
 
-  MinePoint(this.x, this.y, this.mineAsset, this.isMined, this.nearbyCount);
+  bool opened;
+  bool flagged;
+  bool mined;
+
+  MinePoint(this.x, this.y, this.mineAsset, this.isMined, this.nearbyCount,
+      {this.opened = false, this.flagged = false, this.mined});
 }

@@ -12,10 +12,23 @@ enum SweeperControl{
 
 class MineSweeperProvider extends ChangeNotifier{
   final Game game;
+  int _counter;
 
   List<List<MineBlockProvider>> points;
 
-  MineSweeperProvider(this.game);
+  String get currentMoodAsset => "assets/happy.jpeg"; // TODO: Implement win lose logic
+
+  int get counter => _counter;
+  set counter(i){
+    counter = i;
+    game.duration = _counter;
+    notifyListeners();
+  }
+
+  MineSweeperProvider(this.game){
+    // Set initial timer
+    _counter = game.duration;
+  }
 
   Future<List<List<MineBlockProvider>>> buildMineBlockProviders() async{
     points = [];
