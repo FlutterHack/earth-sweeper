@@ -5,6 +5,7 @@ import 'package:earthsweeper/providers/game_settings_provider.dart';
 import 'package:flutter/cupertino.dart';
 
 enum GameType { beginner, intermediate, expert, custom }
+enum GameState {idle, playing, excited, died, winner}
 
 class Game {
   int height;
@@ -13,11 +14,12 @@ class Game {
   int duration;
   int flagCount;
 
+  GameState state;
   GameType type;
 
   List<List<MinePoint>> points;
 
-  Game({@required this.type, @required this.height, @required this.width, @required this.mineCount, this.duration = 60, this.flagCount = 99}) {
+  Game({@required this.type, @required this.height, @required this.width, @required this.mineCount, this.duration = 60, this.flagCount = 99, this.state = GameState.idle}) {
     points = [];
     // Build points and mines
     // TODO: Move this block to async

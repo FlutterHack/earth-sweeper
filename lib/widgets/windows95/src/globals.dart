@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 class Flutter95 {
   static const grays = [
     Color(0xFFc6c6c6),
-    Color(0xFFd2d2d2),
+    Color(0xFFBDBDBD),
     Color(0xFF0b0b0b),
     Color(0xFF868a8e),
   ];

@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:earthsweeper/models/game.dart';
+import 'package:earthsweeper/models/mine_point.dart';
 import 'package:flutter/material.dart';
 
 import '../controllers/mine_block_controller.dart';
@@ -10,17 +13,42 @@ enum SweeperControl{
 
 class MineSweeperProvider extends ChangeNotifier{
   final Game game;
+  Timer timer;
+
   int _counter;
 
   List<List<MineBlockController>> points;
 
-  String get currentMoodAsset => "assets/happy.jpeg"; // TODO: Implement win lose logic
+  String get currentMoodAsset{
+    if(game == null)
+      return "assets/happy.png";
+
+    if(game.state == GameState.idle || game.state == GameState.excited){
+      return "assets/happy.png";
+    }
+    else if(game.state == GameState.excited){
+      return "assets/excited.png";
+    }
+    else if(game.state == GameState.died){
+      return "assets/died.png";
+    }
+    else if(game.state == GameState.winner){
+      return "assets/winner.png";
+    }
+    else{
+      return "assets/happy.png";
+    }
+  }
 
   int get counter => _counter;
   set counter(i){
-    counter = i;
+    _counter = i;
     game.duration = _counter;
     notifyListeners();
+  }
+
+  set excitement(bool excite){
+    game.state = excite ? GameState.excited : GameState.playing;
   }
 
   MineSweeperProvider(this.game){
@@ -41,14 +69,20 @@ class MineSweeperProvider extends ChangeNotifier{
   }
 
   void blockClick(MineBlockController mineBlock){
+    if(game.state == GameState.idle){
+      timer = Timer(Duration(seconds: 1), (){
+        counter++;
+      });
+    }
+
     // Check clicked point if its mined than finish game
     // If its nearest point greater than 0 only show him
     // If its nearest point equals to 0 than search all nearest fields
-
-    if(mineBlock.pointData.mined){
-      // TODO: Implement game finish
+    if(mineBlock.pointData.mined && !mineBlock.flagged){
+      explodeField();
+      mineBlock.exploded = true;
     }
-    else if (mineBlock.pointData.nearbyCount > 0){
+    else if (mineBlock.pointData.nearbyCount > 0 && !mineBlock.flagged){
       mineBlock.opened = true;
     }
     else if (mineBlock.pointData.nearbyCount == 0){
@@ -57,8 +91,8 @@ class MineSweeperProvider extends ChangeNotifier{
     }
   }
 
-  // Opens block, returns false if block is mined, and not opens it
-  bool openBlock(int x, int y, {bool allowPassThoughNumber = false}){
+  // Opens block and check neighborhoods
+  void openBlock(int x, int y, {bool allowPassThoughNumber = false}){
     if((x >= 0 && x < game.width) && (y >= 0 && y < game.height) && !points[x][y].pointData.mined && !points[x][y].flagged && !points[x][y].opened){
       MineBlockController point = points[x][y];
 
@@ -74,6 +108,18 @@ class MineSweeperProvider extends ChangeNotifier{
         openBlock(x + 1, y + 1, allowPassThoughNumber: point.pointData.nearbyCount == 0); // South East
         openBlock(x, y + 1, allowPassThoughNumber: point.pointData.nearbyCount == 0); // South
         openBlock(x - 1, y + 1, allowPassThoughNumber: point.pointData.nearbyCount == 0); // South West
+      }
+    }
+  }
+
+  void explodeField(){
+    for (int x = 0; x < game.width; x++) {
+      for (int y = 0; y < game.height; y++) {
+        MineBlockController point = points[x][y];
+
+        if(!point.flagged && point.pointData.mined){
+          point.opened = true;
+        }
       }
     }
   }

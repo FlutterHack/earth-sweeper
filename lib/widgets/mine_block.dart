@@ -55,7 +55,7 @@ class _MineBlock extends State<MineBlock> {
                   child: widget.blockController.flagged
                       ? Padding(
                     padding: EdgeInsets.all(widget.blockDiemension / 6),
-                    child: Image.asset("assets/mine_block/flag.jpg",
+                    child: Image.asset("assets/mine_block/flag.png",
                         height: widget.blockDiemension,
                         width: widget.blockDiemension,
                         fit: BoxFit.fill,

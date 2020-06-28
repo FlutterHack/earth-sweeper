@@ -40,17 +40,18 @@ class MineBlockController{
   }
 
   String get blockAsset{
-    if(pointData.mined && pointData.opened){
-      return "assets/mine_block/mine_exposed.jpg";
-    }
+
     if(pointData.exploded && pointData.opened){
-      return "assets/mine_block/mine_exploded.jpg";
+      return "assets/mine_block/mine_exploded.png";
     }
-    if(pointData.nearbyCount > 0 && pointData.opened){
-      return "assets/mine_block/${pointData.nearbyCount}.jpg";
+    else if(pointData.mined && pointData.opened){
+      return "assets/mine_block/mine_opened.png";
+    }
+    else if(pointData.nearbyCount > 0 && pointData.opened){
+      return "assets/mine_block/${pointData.nearbyCount}.png";
     }
     else{
-      return "assets/mine_block/0.jpg";
+      return "assets/mine_block/0.png";
     }
   }
   
