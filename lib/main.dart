@@ -1,7 +1,6 @@
 import 'package:earthsweeper/pages/login_page.dart';
 import 'package:earthsweeper/pages/seed_page.dart';
 import 'package:earthsweeper/pages/setup_page.dart';
-import 'package:earthsweeper/widgets/appbar.dart';
 import 'package:earthsweeper/widgets/windows95/src/alert95.dart';
 import 'package:earthsweeper/widgets/windows95/src/button95.dart';
 import 'package:flutter/material.dart';
@@ -38,23 +37,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter(BuildContext context) {
-    Alert95(context: context, buttons: [
-      Button95(
-        onTap: () {
-          Navigator.of(context).pop();
-        },
-        child: Text("CLOSE"),
-      )
-    ]).show();
-
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
