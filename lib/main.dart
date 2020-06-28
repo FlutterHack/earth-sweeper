@@ -108,26 +108,30 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Item95(
                 label: 'Seeds',
-                menu: Menu95(
-                  items: [
-                    MenuItem95(
-                      value: 1,
-                      label: 'Get Seeds',
-                    ),
-                    MenuItem95(
-                      value: 2,
-                      label: 'Plant Tree',
-                    ),
-                  ],
-                  onItemSelected: (val) {
-                    switch (val) {
-                      case 1:
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => SeedPage()));
-                        break;
-                    }
-                  },
-                ),
+                onTap: (_) {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => SeedPage()));
+                },
+                // menu: Menu95(
+                //   items: [
+                //     MenuItem95(
+                //       value: 1,
+                //       label: 'Get Seeds',
+                //     ),
+                //     MenuItem95(
+                //       value: 2,
+                //       label: 'Plant Tree',
+                //     ),
+                //   ],
+                //   onItemSelected: (val) {
+                //     switch (val) {
+                //       case 1:
+                //         Navigator.of(context).push(MaterialPageRoute(
+                //             builder: (context) => SeedPage()));
+                //         break;
+                //     }
+                //   },
+                // ),
               ),
             ],
           ),
