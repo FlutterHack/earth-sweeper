@@ -1,3 +1,4 @@
+import 'package:earthsweeper/constants/win95_page_transition.dart';
 import 'package:earthsweeper/models/game.dart';
 import 'package:earthsweeper/pages/login_page.dart';
 import 'package:earthsweeper/pages/seed_page.dart';
@@ -78,8 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
                           break;
                         case 3:
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => SetupPage()));
+                          Navigator.of(context)
+                              .push(Win95Transition(widget: SetupPage()));
+
                           break;
                       }
                     },
@@ -109,8 +111,8 @@ class _MyHomePageState extends State<MyHomePage> {
               Item95(
                 label: 'Seeds',
                 onTap: (_) {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => SeedPage()));
+                  Navigator.of(context)
+                      .push(Win95Transition(widget: SeedPage()));
                 },
                 // menu: Menu95(
                 //   items: [
