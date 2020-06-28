@@ -30,21 +30,15 @@ class MineSweeperProvider extends ChangeNotifier{
     _counter = game.duration;
   }
 
-  Future<List<List<MineBlockProvider>>> buildMineBlockProviders() async{
+  Future<List<List<MineBlockProvider>>> buildMineBlockProviders(){
     points = [];
 
     // Build MineBlockProviders
     for(int x = 0; x < game.width; x++){
       points.add([]);
-      for(int y = 0; y < game.width; y++){
+      for(int y = 0; y < game.height; y++){
         points[x].add(MineBlockProvider(game.points[x][y]));
       }
     }
-
-    // Wait for build finish, TODO: Implement correct waiting for build
-    await Future.delayed(Duration(milliseconds: 100));
-
-    // Notify sweeper area
-    notifyListeners();
   }
 }

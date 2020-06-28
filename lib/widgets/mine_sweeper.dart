@@ -25,22 +25,26 @@ class MineSweeper extends StatelessWidget {
     return ChangeNotifierProvider<MineSweeperProvider>(
       create: (BuildContext context) => MineSweeperProvider(gameModel),
       builder: (BuildContext context, Widget child) {
-        // There are 4 borders between screen borders, extract them from width
-        double areaWidth = screenWidth - UI_MARGIN*2 - UI_BORDER_THICKNESS*4;
-
         // The provider
         MineSweeperProvider provider = Provider.of<MineSweeperProvider>(context);
 
-        // Build mine providers
+        // Build mine block providers
         provider.buildMineBlockProviders();
+
+        // There are 4 borders between screen borders, extract them from width
+        double areaWidth = screenWidth - UI_MARGIN*2 - UI_BORDER_THICKNESS*4;
+        double areaHeight = (areaWidth / provider.points.length) * provider.points[0].length;
+        double blockDimension = (areaWidth / provider.points.length);
 
         // Simply build blocks from 2 dimensional points list
         return Elevation95(
           child: Container(
             padding: EdgeInsets.all(UI_MARGIN),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                 Elevation95(
+                // TOP BAR
+                Elevation95(
                    type: Elevation95Type.down,
                    child: Padding(
                      padding: EdgeInsets.all(UI_MARGIN),
@@ -65,35 +69,50 @@ class MineSweeper extends StatelessWidget {
                  Container( // As margin
                    height: UI_MARGIN,
                  ),
-                 Elevation95(
-                  type: Elevation95Type.down,
-                   child: Container(
-                     width: areaWidth,
-                     height: areaWidth,
-                     child: Consumer<MineSweeperProvider>(
-                      builder: (BuildContext context, MineSweeperProvider value, Widget child) {
-                        return Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: provider.points != null
-                            ? provider.points.map((row){                        // Map all points to mine blocks
-                                return Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: row.map((blockProvider){
-                                    return ChangeNotifierProvider<MineBlockProvider>( // Define provider in here, blockProvider already defined in the MineSweeperProvider
-                                      create: (BuildContext context) => blockProvider,
-                                      builder: (c, v){
-                                        return MineBlock(blockDiemension: areaWidth/row.length,);
-                                      },
+                // MINE FIELD
+                Expanded(
+                   child: Elevation95(
+                    type: Elevation95Type.down,
+                     child: SingleChildScrollView(
+                       child: Container(
+                         width: areaWidth,
+                         height: areaHeight,
+                         child: Consumer<MineSweeperProvider>(
+                          builder: (BuildContext context, MineSweeperProvider value, Widget child) {
+                            return Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: provider.points != null
+                                ? provider.points.map((row){                        // Map all points to mine blocks
+                                    return Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: row.map((blockProvider){
+                                        return ChangeNotifierProvider<MineBlockProvider>( // Define provider in here, blockProvider already defined in the MineSweeperProvider
+                                          create: (BuildContext context) => blockProvider,
+                                          builder: (c, v){
+                                            return MineBlock(blockDiemension: blockDimension,);
+                                          },
+                                        );
+                                      }).toList(),
                                     );
-                                  }).toList(),
-                                );
-                              }).toList()
-                            : null
-                          );
-                      },
-                  ),
-                   ),
-                ),
+                                  }).toList()
+                                : null
+                              );
+                          },
+                        ),
+                       ),
+                     ),
+                    ),
+                 ),
+                // GAME CONTROLLER
+                Row(
+                  children: <Widget>[
+                    // SPECIAL FEATURES
+                    Container(
+
+                    ),
+                    // CONTROLLER
+                  ],
+                )
               ],
             ),
           ),
