@@ -23,7 +23,7 @@ class MineSweeperProvider extends ChangeNotifier{
     if(game == null)
       return "assets/happy.png";
 
-    if(game.state == GameState.idle || game.state == GameState.excited){
+    if(game.state == GameState.idle || game.state == GameState.playing){
       return "assets/happy.png";
     }
     else if(game.state == GameState.excited){
@@ -49,6 +49,7 @@ class MineSweeperProvider extends ChangeNotifier{
 
   set excitement(bool excite){
     game.state = excite ? GameState.excited : GameState.playing;
+    notifyListeners();
   }
 
   MineSweeperProvider(this.game){
@@ -56,7 +57,10 @@ class MineSweeperProvider extends ChangeNotifier{
     _counter = game.duration;
   }
 
-  Future<List<List<MineBlockController>>> buildMineBlockProviders(){
+  void buildMineBlockProviders(){
+    if(points != null)
+      return;
+
     points = [];
 
     // Build MineBlockProviders
@@ -69,18 +73,33 @@ class MineSweeperProvider extends ChangeNotifier{
   }
 
   void blockClick(MineBlockController mineBlock){
-    if(game.state == GameState.idle){
-      timer = Timer(Duration(seconds: 1), (){
+    // Start timer if it didn't started yet
+    if(timer == null){
+      timer = Timer.periodic(Duration(seconds: 1), (t){
         counter++;
       });
+
+      game.state = GameState.playing;
     }
+
+    // Set excitement false
+    excitement = false;
 
     // Check clicked point if its mined than finish game
     // If its nearest point greater than 0 only show him
     // If its nearest point equals to 0 than search all nearest fields
     if(mineBlock.pointData.mined && !mineBlock.flagged){
-      explodeField();
+      // Stop timer
+      timer.cancel();
+
+      // Expose field
+      exposeFieldAndFinish();
+
+      // Set users clicked point as exploded
       mineBlock.exploded = true;
+
+      // Set state
+      game.state = GameState.died;
     }
     else if (mineBlock.pointData.nearbyCount > 0 && !mineBlock.flagged){
       mineBlock.opened = true;
@@ -112,7 +131,7 @@ class MineSweeperProvider extends ChangeNotifier{
     }
   }
 
-  void explodeField(){
+  void exposeFieldAndFinish(){
     for (int x = 0; x < game.width; x++) {
       for (int y = 0; y < game.height; y++) {
         MineBlockController point = points[x][y];

@@ -27,7 +27,7 @@ class _TestAppState extends State<TestApp> {
                 gameModel: Game(
                   type: GameType.custom,
                   width: 5,
-                  height: 20,
+                  height: 5,
                   mineCount: 10,
                 ),
               )),

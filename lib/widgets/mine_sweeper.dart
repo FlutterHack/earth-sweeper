@@ -13,7 +13,7 @@ import 'mine_block.dart';
 class MineSweeper extends StatelessWidget {
   final Game gameModel;
 
-  const MineSweeper({Key key, @required this.gameModel}) : super(key: key);
+  const MineSweeper({Key key, @required this.gameModel});
 
   @override
   Widget build(BuildContext context) {
@@ -56,25 +56,27 @@ class MineSweeper extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           LCDPanel(
-                            text: provider.game.flagCount.toString() ?? "000",
+                            number: provider.game.flagCount ?? 0,
+                            length: 2,
                             height: 30,
                           ),
                           Elevation95(
                             child: Image.asset(
-                              "assets/happy.jpg",
+                              provider.currentMoodAsset,
                               height: 30,
                               fit: BoxFit.fill,
                             ),
                           ),
-                          Selector<MineSweeperProvider, String>(
+                          Selector<MineSweeperProvider, int>(
                             selector:
                                 (BuildContext, MineSweeperProvider provider) =>
-                                    provider.counter.toString(),
-                            builder: (BuildContext context, String value,
+                                    provider.counter,
+                            builder: (BuildContext context, int value,
                                 Widget child) {
                               return LCDPanel(
-                                text: value ?? "00",
+                                number: value ?? 0,
                                 height: 30,
+                                length: 3,
                               );
                             },
                           )

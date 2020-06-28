@@ -9,8 +9,10 @@ class MineBlockController{
   MineBlockController(this.pointData);
 
   bool _tabbed = false;
+  bool _disabled = false;
 
   bool get tabbed => _tabbed;
+  bool get disabled => _disabled;
   bool get opened => pointData.opened;
   bool get exploded => pointData.exploded;
   bool get flagged => pointData.flagged;
@@ -22,9 +24,11 @@ class MineBlockController{
   }
 
   set tabbed(bool b){
-    _state.setState((){
-      _tabbed = b;
-    });  // Todo: implement change detection control to prevent needless ui updates
+    if(!_disabled){
+      _state.setState((){
+        _tabbed = b;
+      });  // Todo: implement change detection control to prevent needless ui updates
+    }
   }
 
   set exploded(bool b){
@@ -39,8 +43,14 @@ class MineBlockController{
     });  // Todo: implement change detection control to prevent needless ui updates
   }
 
-  String get blockAsset{
 
+  set disabled(bool b){
+    _state.setState((){
+      _disabled = b;
+    });  // Todo: implement change detection control to prevent needless ui updates
+  }
+
+  String get blockAsset{
     if(pointData.exploded && pointData.opened){
       return "assets/mine_block/mine_exploded.png";
     }
@@ -57,9 +67,5 @@ class MineBlockController{
   
   void registerState(State state){
     _state = state;
-  }
-  
-  void openBlock(){
-    _state.setState((){});
   }
 }

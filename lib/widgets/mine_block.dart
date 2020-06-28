@@ -33,9 +33,11 @@ class _MineBlock extends State<MineBlock> {
             ? GestureDetector(
               onTapDown: (details){
                 widget.blockController.tabbed = true;
+                Provider.of<MineSweeperProvider>(context, listen: false).excitement = true;
               },
               onTapUp: (details){
                 widget.blockController.tabbed = false;
+                Provider.of<MineSweeperProvider>(context, listen: false).excitement = false;
                 Provider.of<MineSweeperProvider>(context, listen: false).blockClick(widget.blockController);
               },
               onDoubleTap: (){

@@ -8,13 +8,14 @@ class Button95 extends StatefulWidget {
     this.child,
     this.padding = const EdgeInsets.symmetric(vertical: 4, horizontal: 20),
     this.height = 30,
-    Key key,
+    Key key, this.width,
   }) : super(key: key);
 
   final Function() onTap;
   final Widget child;
   final EdgeInsetsGeometry padding;
   final double height;
+  final double width;
 
   @override
   _Button95State createState() => _Button95State();

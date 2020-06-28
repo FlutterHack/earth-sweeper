@@ -19,7 +19,7 @@ class Game {
 
   List<List<MinePoint>> points;
 
-  Game({@required this.type, @required this.height, @required this.width, @required this.mineCount, this.duration = 60, this.flagCount = 99, this.state = GameState.idle}) {
+  Game({@required this.type, @required this.height, @required this.width, @required this.mineCount, this.duration = 0, this.flagCount = 99, this.state = GameState.idle}) {
     points = [];
     // Build points and mines
     // TODO: Move this block to async
