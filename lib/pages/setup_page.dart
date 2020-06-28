@@ -45,7 +45,6 @@ class _SetupPageState extends State<SetupPage> {
                       Material(
                         color: Colors.transparent,
                         child: RadioListTile(
-                            activeColor: Colors.black,
                             title: Text(
                               "Beginner",
                               style: Flutter95.textStyle,

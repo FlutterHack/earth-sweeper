@@ -1,4 +1,5 @@
 import 'package:earthsweeper/pages/login_page.dart';
+import 'package:earthsweeper/pages/seed_page.dart';
 import 'package:earthsweeper/pages/setup_page.dart';
 import 'package:earthsweeper/widgets/appbar.dart';
 import 'package:earthsweeper/widgets/windows95/src/alert95.dart';
@@ -6,6 +7,7 @@ import 'package:earthsweeper/widgets/windows95/src/button95.dart';
 import 'package:flutter/material.dart';
 
 import 'widgets/windows95/flutter95.dart';
+import 'widgets/windows95/src/menu95.dart';
 
 void main() {
   runApp(MyApp());
@@ -65,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
               menu: Menu95(
                   onItemSelected: (val) {
                     switch (val) {
-                      case 4:
+                      case 5:
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => SetupPage()));
                         break;
@@ -88,15 +90,34 @@ class _MyHomePageState extends State<MyHomePage> {
                       value: 4,
                       label: 'Custom',
                     ),
+                    MenuItem95(
+                      value: 5,
+                      label: 'Change Difficulty',
+                    ),
                   ]),
             ),
             Item95(
-              label: 'Get Seeds',
-              onTap: (_) {},
-            ),
-            Item95(
-              label: 'Plant a Tree',
-              onTap: (_) {},
+              label: 'Seeds',
+              menu: Menu95(
+                items: [
+                  MenuItem95(
+                    value: 1,
+                    label: 'Get Seeds',
+                  ),
+                  MenuItem95(
+                    value: 2,
+                    label: 'Plant Tree',
+                  ),
+                ],
+                onItemSelected: (val) {
+                  switch (val) {
+                    case 1:
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => SeedPage()));
+                      break;
+                  }
+                },
+              ),
             ),
           ],
         ),
