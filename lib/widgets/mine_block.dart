@@ -1,43 +1,79 @@
 import 'package:earthsweeper/constants/values.dart';
+import 'package:earthsweeper/controllers/mine_block_controller.dart';
 import 'package:earthsweeper/models/mine_point.dart';
-import 'package:earthsweeper/providers/mine_block_provider.dart';
+import 'package:earthsweeper/providers/mine_sweeper_provider.dart';
 import 'package:earthsweeper/widgets/windows95/flutter95.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class MineBlock extends StatelessWidget {
+class MineBlock extends StatefulWidget{
   final double blockDiemension;
+  final MineBlockController blockController;
 
-  const MineBlock({Key key, this.blockDiemension}) : super(key: key);
+  const MineBlock({Key key, this.blockDiemension, this.blockController}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    return _MineBlock();
+  }
+}
+
+class _MineBlock extends State<MineBlock> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<MineBlockProvider>(
-      builder: (BuildContext context, MineBlockProvider provider, Widget child) {
-        return !provider.opened
-            ? Container(
-              width: blockDiemension,
-              height: blockDiemension,
-              decoration: provider.tabbed
-                  ? Flutter95.pressedDecorationOutside
-                  : Flutter95.elevatedDecorationOutside,
+    widget.blockController.registerState(this);
+
+    return !widget.blockController.opened
+            ? GestureDetector(
+              onTapDown: (details){
+                widget.blockController.tabbed = true;
+              },
+              onTapUp: (details){
+                widget.blockController.tabbed = false;
+                Provider.of<MineSweeperProvider>(context, listen: false).blockClick(widget.blockController);
+              },
+              onDoubleTap: (){
+                widget.blockController.flagged = !widget.blockController.flagged;
+                widget.blockController.tabbed = false;
+              },
               child: Container(
-                decoration: provider.tabbed
-                    ? Flutter95.pressedDecoration
-                    : Flutter95.elevatedDecoration,
-                  ),
-                )
+                width: widget.blockDiemension,
+                height: widget.blockDiemension,
+                decoration: widget.blockController.tabbed
+                    ? Flutter95.pressedDecorationOutside
+                    : Flutter95.elevatedDecorationOutside,
+                child: Container(
+                  decoration: widget.blockController.tabbed
+                      ? Flutter95.pressedDecoration
+                      : Flutter95.elevatedDecoration,
+                  child: widget.blockController.flagged
+                      ? Padding(
+                    padding: EdgeInsets.all(widget.blockDiemension / 6),
+                    child: Image.asset("assets/mine_block/flag.jpg",
+                        height: widget.blockDiemension,
+                        width: widget.blockDiemension,
+                        fit: BoxFit.fill,
+                        filterQuality: FilterQuality.none),
+                  )
+                      : null,
+                ),
+              ),
+            )
             : Container(
-                height: blockDiemension,
-                width: blockDiemension,
-                decoration: Flutter95.pressedDecoration,
-                child: Image.asset(provider.blockAsset ?? "",
-                  height: blockDiemension,
-                  width: blockDiemension,
+              height: widget.blockDiemension,
+              width: widget.blockDiemension,
+              decoration: Flutter95.pressedDecoration,
+              child: Image.asset(widget.blockController.blockAsset ?? "",
+                  height: widget.blockDiemension,
+                  width: widget.blockDiemension,
                   fit: BoxFit.fill,
-                filterQuality: FilterQuality.none),
-              );
-      },
-    );
+                  filterQuality: FilterQuality.none),
+        );
   }
 }

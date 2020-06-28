@@ -1,6 +1,6 @@
 import 'package:earthsweeper/constants/values.dart';
 import 'package:earthsweeper/models/game.dart';
-import 'package:earthsweeper/providers/mine_block_provider.dart';
+import 'file:///C:/Users/test/Desktop/WorkforceManagement/earth_sweeper/lib/controllers/mine_block_controller.dart';
 import 'package:earthsweeper/providers/mine_sweeper_provider.dart';
 import 'package:earthsweeper/widgets/lcd_panel.dart';
 import 'package:earthsweeper/widgets/windows95/src/utils.dart';
@@ -86,12 +86,7 @@ class MineSweeper extends StatelessWidget {
                                     return Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: row.map((blockProvider){
-                                        return ChangeNotifierProvider<MineBlockProvider>( // Define provider in here, blockProvider already defined in the MineSweeperProvider
-                                          create: (BuildContext context) => blockProvider,
-                                          builder: (c, v){
-                                            return MineBlock(blockDiemension: blockDimension,);
-                                          },
-                                        );
+                                        return MineBlock(blockDiemension: blockDimension, blockController: blockProvider,);
                                       }).toList(),
                                     );
                                   }).toList()

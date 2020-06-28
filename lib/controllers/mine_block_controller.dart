@@ -2,10 +2,11 @@ import 'package:earthsweeper/models/mine_point.dart';
 import 'package:earthsweeper/widgets/mine_block.dart';
 import 'package:flutter/cupertino.dart';
 
-class MineBlockProvider with ChangeNotifier{
+class MineBlockController{
   final MinePoint pointData;
-
-  MineBlockProvider(this.pointData);
+  State _state;
+  
+  MineBlockController(this.pointData);
 
   bool _tabbed = false;
 
@@ -15,23 +16,27 @@ class MineBlockProvider with ChangeNotifier{
   bool get flagged => pointData.flagged;
 
   set opened(bool b){
-    pointData.opened = b;
-    notifyListeners();  // Todo: implement change detection control to prevent needless ui updates
+    _state.setState((){
+      pointData.opened = b;
+    });  // Todo: implement change detection control to prevent needless ui updates
   }
 
   set tabbed(bool b){
-    _tabbed = b;
-    notifyListeners();  // Todo: implement change detection control to prevent needless ui updates
+    _state.setState((){
+      _tabbed = b;
+    });  // Todo: implement change detection control to prevent needless ui updates
   }
 
   set exploded(bool b){
-    pointData.exploded = b;
-    notifyListeners();  // Todo: implement change detection control to prevent needless ui updates
+    _state.setState((){
+      pointData.exploded = b;
+    });  // Todo: implement change detection control to prevent needless ui updates
   }
 
   set flagged(bool b){
-    pointData.flagged = b;
-    notifyListeners();  // Todo: implement change detection control to prevent needless ui updates
+    _state.setState((){
+      pointData.flagged = b;
+    });  // Todo: implement change detection control to prevent needless ui updates
   }
 
   String get blockAsset{
@@ -48,12 +53,12 @@ class MineBlockProvider with ChangeNotifier{
       return "assets/mine_block/0.jpg";
     }
   }
-
-  void clicked(){
-
+  
+  void registerState(State state){
+    _state = state;
   }
-
+  
   void openBlock(){
-    notifyListeners();
+    _state.setState((){});
   }
 }
