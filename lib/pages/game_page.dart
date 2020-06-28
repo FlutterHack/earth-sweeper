@@ -7,8 +7,8 @@ class GamePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      // title: "Game",
+        child: Scaffold95(
+      title: "Game",
       body: Container(
           child: MineSweeper(
         gameModel: Game(
