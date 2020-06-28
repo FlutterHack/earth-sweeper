@@ -1,9 +1,11 @@
 import 'package:earthsweeper/pages/login_page.dart';
 import 'package:earthsweeper/pages/seed_page.dart';
 import 'package:earthsweeper/pages/setup_page.dart';
+import 'package:earthsweeper/providers/game_settings_provider.dart';
 import 'package:earthsweeper/widgets/windows95/src/alert95.dart';
 import 'package:earthsweeper/widgets/windows95/src/button95.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'widgets/windows95/flutter95.dart';
 import 'widgets/windows95/src/menu95.dart';
@@ -15,14 +17,19 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          fontFamily: "MSSansSerif"),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => GameSettingsProvider())
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+            primarySwatch: Colors.blue,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+            fontFamily: "MSSansSerif"),
+        home: MyHomePage(title: 'Flutter Demo Home Page'),
+      ),
     );
   }
 }
