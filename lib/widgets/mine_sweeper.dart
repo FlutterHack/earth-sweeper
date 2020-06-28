@@ -1,3 +1,4 @@
+import 'package:earthsweeper/constants/values.dart';
 import 'package:earthsweeper/models/game.dart';
 import 'package:earthsweeper/providers/mine_block_provider.dart';
 import 'package:earthsweeper/providers/mine_sweeper_provider.dart';
@@ -17,6 +18,8 @@ class MineSweeper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenwidth = MediaQuery.of(context).size.width;
+
     // Build notifier provider with game settings
     return ChangeNotifierProvider<MineSweeperProvider>(
       create: (BuildContext context) => MineSweeperProvider(gameModel),
@@ -29,13 +32,13 @@ class MineSweeper extends StatelessWidget {
         // Simply build blocks from 2 dimensional points list
         return Elevation95(
           child: Container(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(UI_MARGIN),
             child: Column(
               children: <Widget>[
                  Elevation95(
                    type: Elevation95Type.down,
                    child: Padding(
-                     padding: EdgeInsets.all(10),
+                     padding: EdgeInsets.all(UI_MARGIN),
                      child: Row(
                        mainAxisSize: MainAxisSize.max,
                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -55,32 +58,36 @@ class MineSweeper extends StatelessWidget {
                    ),
                  ),
                  Container( // As margin
-                   height: 10,
+                   height: UI_MARGIN,
                  ),
                  Elevation95(
                   type: Elevation95Type.down,
-                   child: Consumer<MineSweeperProvider>(
-                    builder: (BuildContext context, MineSweeperProvider value, Widget child) {
-                      return Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: provider.points != null
-                          ? provider.points.map((row){
-                              return Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: row.map((block){
-                                  return ChangeNotifierProvider<MineBlockProvider>(
-                                    create: (BuildContext context) => block,
-                                    builder: (c, v){
-                                      return MineBlock();
-                                    },
-                                  );
-                                }).toList(),
-                              );
-                            }).toList()
-                          : null
-                        );
-                    },
+                   child: Container(
+                     width: screenwidth - UI_MARGIN * 2,
+                     height: screenwidth - UI_MARGIN * 2,
+                     child: Consumer<MineSweeperProvider>(
+                      builder: (BuildContext context, MineSweeperProvider value, Widget child) {
+                        return Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: provider.points != null
+                            ? provider.points.map((row){
+                                return Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: row.map((block){
+                                    return ChangeNotifierProvider<MineBlockProvider>(
+                                      create: (BuildContext context) => block,
+                                      builder: (c, v){
+                                        return MineBlock();
+                                      },
+                                    );
+                                  }).toList(),
+                                );
+                              }).toList()
+                            : null
+                          );
+                      },
                   ),
+                   ),
                 ),
               ],
             ),
