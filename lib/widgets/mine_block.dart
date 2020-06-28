@@ -6,11 +6,12 @@ import 'package:earthsweeper/widgets/windows95/flutter95.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class MineBlock extends StatefulWidget{
+class MineBlock extends StatefulWidget {
   final double blockDiemension;
   final MineBlockController blockController;
 
-  const MineBlock({Key key, this.blockDiemension, this.blockController}) : super(key: key);
+  const MineBlock({Key key, this.blockDiemension, this.blockController})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -19,7 +20,6 @@ class MineBlock extends StatefulWidget{
 }
 
 class _MineBlock extends State<MineBlock> {
-
   @override
   void initState() {
     super.initState();
@@ -30,61 +30,67 @@ class _MineBlock extends State<MineBlock> {
     widget.blockController.registerState(this);
 
     return !widget.blockController.opened
-            ? GestureDetector(
-              onTapDown: (details){
-                if(!widget.blockController.disabled){
-                  widget.blockController.tabbed = true;
-                  Provider.of<MineSweeperProvider>(context, listen: false).excitement = true;
-                }
-              },
-              onTapUp: (details){
-                if(!widget.blockController.disabled){
-                  widget.blockController.tabbed = false;
-                  Provider.of<MineSweeperProvider>(context, listen: false).excitement = false;
-                  Provider.of<MineSweeperProvider>(context, listen: false).blockClick(widget.blockController, context);
-                }
-              },
-              onDoubleTap: (){
-                if(!widget.blockController.disabled){
-                  widget.blockController.flagged = !widget.blockController.flagged;
-                  widget.blockController.tabbed = false;
+        ? GestureDetector(
+            onTapDown: (details) {
+              if (!widget.blockController.disabled) {
+                widget.blockController.tabbed = true;
+                Provider.of<MineSweeperProvider>(context, listen: false)
+                    .excitement = true;
+              }
+            },
+            onTapUp: (details) {
+              if (!widget.blockController.disabled) {
+                widget.blockController.tabbed = false;
+                Provider.of<MineSweeperProvider>(context, listen: false)
+                    .excitement = false;
+                Provider.of<MineSweeperProvider>(context, listen: false)
+                    .blockClick(widget.blockController, context);
+              }
+            },
+            onDoubleTap: () {
+              if (!widget.blockController.disabled) {
+                widget.blockController.flagged =
+                    !widget.blockController.flagged;
+                widget.blockController.tabbed = false;
 
-                  Provider.of<MineSweeperProvider>(context, listen: false).excitement = false;
-                  Provider.of<MineSweeperProvider>(context, listen: false).decreaseFlagCount();
-                }
-              },
-              child: Container(
-                width: widget.blockDiemension,
-                height: widget.blockDiemension,
-                decoration: widget.blockController.tabbed
-                    ? Flutter95.pressedDecorationOutside
-                    : Flutter95.elevatedDecorationOutside,
-                child: Container(
-                  decoration: widget.blockController.tabbed
-                      ? Flutter95.pressedDecoration
-                      : Flutter95.elevatedDecoration,
-                  child: widget.blockController.flagged
-                      ? Padding(
-                    padding: EdgeInsets.all(widget.blockDiemension / 6),
-                    child: Image.asset("assets/mine_block/flag.png",
-                        height: widget.blockDiemension,
-                        width: widget.blockDiemension,
-                        fit: BoxFit.fill,
-                        filterQuality: FilterQuality.none),
-                  )
-                      : null,
-                ),
-              ),
-            )
-            : Container(
-              height: widget.blockDiemension,
+                Provider.of<MineSweeperProvider>(context, listen: false)
+                    .excitement = false;
+                Provider.of<MineSweeperProvider>(context, listen: false)
+                    .decreaseFlagCount();
+              }
+            },
+            child: Container(
               width: widget.blockDiemension,
-              decoration: Flutter95.pressedDecoration,
-              child: Image.asset(widget.blockController.blockAsset ?? "",
-                  height: widget.blockDiemension,
-                  width: widget.blockDiemension,
-                  fit: BoxFit.fill,
-                  filterQuality: FilterQuality.none),
-        );
+              height: widget.blockDiemension,
+              decoration: widget.blockController.tabbed
+                  ? Flutter95.pressedDecorationOutside
+                  : Flutter95.elevatedDecorationOutside,
+              child: Container(
+                decoration: widget.blockController.tabbed
+                    ? Flutter95.pressedDecoration
+                    : Flutter95.elevatedDecoration,
+                child: widget.blockController.flagged
+                    ? Padding(
+                        padding: EdgeInsets.all(widget.blockDiemension / 6),
+                        child: Image.asset("assets/mine_block/flag.png",
+                            height: widget.blockDiemension,
+                            width: widget.blockDiemension,
+                            fit: BoxFit.fill,
+                            filterQuality: FilterQuality.none),
+                      )
+                    : null,
+              ),
+            ),
+          )
+        : Container(
+            height: widget.blockDiemension,
+            width: widget.blockDiemension,
+            decoration: Flutter95.pressedDecoration,
+            child: Image.asset(widget.blockController.blockAsset ?? "",
+                height: widget.blockDiemension,
+                width: widget.blockDiemension,
+                fit: BoxFit.fill,
+                filterQuality: FilterQuality.none),
+          );
   }
 }
