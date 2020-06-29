@@ -269,6 +269,7 @@ class _SetupPageState extends State<SetupPage> {
                         setState(() {
                           errorText = "";
                         });
+                        if (width > 20) width = 20;
                         Provider.of<GameSettingsProvider>(context,
                                 listen: false)
                             .changeSettings(type, width, height, mines);
