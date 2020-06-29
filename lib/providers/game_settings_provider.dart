@@ -7,7 +7,7 @@ class GameSettingsProvider extends ChangeNotifier {
   GameType _type = GameType.beginner;
   int _width = 9;
   int _height = 9;
-  int _mines = 2;
+  int _mines = 10;
 
   GameType get type => _type;
   int get width => _width;
@@ -23,7 +23,7 @@ class GameSettingsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Game buildGame(){
+  Game buildGame() {
     return Game(type: _type, height: _height, width: _width, mineCount: _mines);
   }
 }

@@ -261,15 +261,16 @@ class _SetupPageState extends State<SetupPage> {
                         setState(() {
                           errorText = "You put so many mines!";
                         });
-                      } else if (_selected == 3 && (mines <= 0)) {
+                      } else if (_selected == 3 && (mines < 3)) {
                         setState(() {
-                          errorText = "You need to put mines!";
+                          errorText = "You need to put at least 3 mines!";
                         });
                       } else {
                         setState(() {
                           errorText = "";
                         });
                         if (width > 20) width = 20;
+                        if (mines < 3) mines = 3;
                         Provider.of<GameSettingsProvider>(context,
                                 listen: false)
                             .changeSettings(type, width, height, mines);
