@@ -115,17 +115,17 @@ class MineSweeperProvider extends ChangeNotifier {
     }
   }
 
-  void decreaseFlagCount() {
+  void changeFlagCount(bool increase) {
     checkAndStartGame();
 
-    game.flagCount--;
+    game.flagCount = game.flagCount + (increase ? 1 : -1);
     notifyListeners();
   }
 
   bool checkWinState() {
     bool checkBlockOpened(int x, int y) {
       if ((x >= 0 && x < game.width) && (y >= 0 && y < game.height)) {
-        return points[x][y].opened;
+        return points[x][y].opened || points[x][y].flagged;
       } else {
         return true;
       }

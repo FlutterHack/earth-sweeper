@@ -52,10 +52,9 @@ class _MineBlock extends State<MineBlock> {
             widget.blockController.flagged = !widget.blockController.flagged;
             widget.blockController.tabbed = false;
 
-            Provider.of<MineSweeperProvider>(context, listen: false)
-                .excitement = false;
-            Provider.of<MineSweeperProvider>(context, listen: false)
-                .decreaseFlagCount();
+                Provider.of<MineSweeperProvider>(context, listen: false).excitement = false;
+                Provider.of<MineSweeperProvider>(context, listen: false)
+                    .changeFlagCount(!widget.blockController.flagged);
           }
         },
         child: widget.blockController.exposed

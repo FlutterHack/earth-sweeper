@@ -7,7 +7,7 @@ class GameSettingsProvider extends ChangeNotifier {
   GameType _type = GameType.beginner;
   int _width = 9;
   int _height = 9;
-  int _mines = 10;
+  int _mines = 2;
 
   GameType get type => _type;
   int get width => _width;
