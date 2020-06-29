@@ -261,9 +261,9 @@ class _SetupPageState extends State<SetupPage> {
                         setState(() {
                           errorText = "You put so many mines!";
                         });
-                      } else if (_selected == 3 && (mines <= 0)) {
+                      } else if (_selected == 3 && (mines < 3)) {
                         setState(() {
-                          errorText = "You need to put mines!";
+                          errorText = "You need to put at least 3 mines!";
                         });
                       } else {
                         setState(() {
