@@ -165,6 +165,26 @@ class _SeedPageState extends State<SeedPage> {
                                         setState(() {
                                           errorText = "";
                                         });
+                                        Alert95(
+                                            context: context,
+                                            title: 'PLANTED A TREE!',
+                                            content: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Image.asset('assets/tree.png',
+                                                    width: 70),
+                                                Container(
+                                                  width: 160,
+                                                  padding: const EdgeInsets.all(
+                                                      16.0),
+                                                  child: Text(
+                                                      "You planted a beautiful tree! Your certificate will be sent to your email within a week.",
+                                                      style:
+                                                          Flutter95.textStyle),
+                                                ),
+                                              ],
+                                            )).show();
                                         seedModel.decrease(TREE_COST);
                                       } else {
                                         setState(() {

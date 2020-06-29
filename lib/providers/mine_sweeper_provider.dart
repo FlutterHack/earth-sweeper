@@ -245,7 +245,11 @@ class MineSweeperProvider extends ChangeNotifier {
     Alert95(
       style: AlertStyle(isCloseButton: false),
       title: 'Congratulations!',
-      image: Image.asset('assets/winner.png'),
+      image: Image.asset(
+        'assets/winner.png',
+        width: 50,
+        fit: BoxFit.fill,
+      ),
       content: Padding(
         padding: const EdgeInsets.only(bottom: 16.0),
         child: Row(
