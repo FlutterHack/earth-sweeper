@@ -16,6 +16,7 @@ class MineBlockController {
   bool get opened => pointData.opened;
   bool get exploded => pointData.exploded;
   bool get flagged => pointData.flagged;
+  bool get exposed => pointData.exposed;
 
   set opened(bool b) {
     _state.setState(() {
@@ -49,11 +50,20 @@ class MineBlockController {
     }); // Todo: implement change detection control to prevent needless ui updates
   }
 
+  set exposed(bool b) {
+    _state.setState(() {
+      pointData.exposed = b;
+    }); // Todo: implement change detection control to prevent needless ui updates
+  }
+
   String get blockAsset {
     if (pointData.exploded && pointData.opened) {
       return "assets/tree_block/tree_exploded.png";
     } else if (pointData.mined && pointData.opened) {
       return "assets/tree_block/tree_opened.png";
+    } else if (pointData.mined && pointData.exposed) {
+      print("BLOCK ASSETS");
+      return "assets/tree_block/tree_disabled.png";
     } else if (pointData.nearbyCount > 0 && pointData.opened) {
       return "assets/tree_block/${pointData.nearbyCount}.png";
     } else {

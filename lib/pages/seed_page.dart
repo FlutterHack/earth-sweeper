@@ -1,5 +1,6 @@
 import 'package:earthsweeper/constants/values.dart';
 import 'package:earthsweeper/providers/seed_provider.dart';
+import 'package:earthsweeper/widgets/windows95/src/alert95.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -50,7 +51,25 @@ class _SeedPageState extends State<SeedPage> {
                             height: UI_SECONDARY_BUTTON_HEIGHT,
                             width: UI_SECONDARY_BUTTON_WIDTH,
                             onTap: () {
-                              seedModel.increase(AD_PURCHASE);
+                              Alert95(
+                                  context: context,
+                                  title: 'AD',
+                                  buttons: [
+                                    Button95(
+                                      width: UI_SECONDARY_BUTTON_WIDTH + 30,
+                                      height: UI_SECONDARY_BUTTON_HEIGHT,
+                                      child: Text("Earn $AD_PURCHASE Seeds"),
+                                      onTap: () {
+                                        seedModel.increase(AD_PURCHASE);
+                                        Navigator.of(context).pop();
+                                      },
+                                    )
+                                  ],
+                                  content: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Text("This is an annoying Ad!",
+                                        style: Flutter95.textStyle),
+                                  )).show();
                               setState(() {
                                 errorText = "";
                               });

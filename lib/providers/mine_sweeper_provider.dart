@@ -233,6 +233,7 @@ class MineSweeperProvider extends ChangeNotifier {
 
         if (!block.flagged && block.pointData.mined) {
           block.flagged = true;
+          block.exposed = true;
         }
 
         block.disabled = true;

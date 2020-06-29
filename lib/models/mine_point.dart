@@ -11,10 +11,13 @@ class MinePoint {
   bool exploded = false;
   bool exposed = false;
 
-  MinePoint(this.x, this.y, {this.opened = false, this.flagged = false, this.mined = false});
+  MinePoint(this.x, this.y,
+      {this.opened = false,
+      this.flagged = false,
+      this.mined = false,
+      this.exposed = false});
 
-  void increaseNearbyCount(){
-    if(!mined)
-      nearbyCount++;
+  void increaseNearbyCount() {
+    if (!mined) nearbyCount++;
   }
 }
