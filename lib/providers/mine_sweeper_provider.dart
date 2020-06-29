@@ -156,7 +156,7 @@ class MineSweeperProvider extends ChangeNotifier {
       if (!checkBlockOpened(point.x - 1, point.y + 1)) // South West
         return false;
     }
-
+    print('WON GAME TRUE');
     return true;
   }
 
@@ -226,6 +226,7 @@ class MineSweeperProvider extends ChangeNotifier {
 
   // Finish game for the blocks
   void flagFieldAndFinish() {
+    print('Flag and Finish');
     for (int x = 0; x < game.width; x++) {
       for (int y = 0; y < game.height; y++) {
         MineBlockController block = points[x][y];
