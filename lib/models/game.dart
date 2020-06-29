@@ -5,7 +5,7 @@ import 'package:earthsweeper/providers/game_settings_provider.dart';
 import 'package:flutter/cupertino.dart';
 
 enum GameType { beginner, intermediate, expert, custom }
-enum GameState {idle, playing, excited, died, winner}
+enum GameState { idle, playing, excited, died, winner }
 
 class Game {
   int height;
@@ -23,7 +23,14 @@ class Game {
   // Placed mines
   List<MinePoint> mines;
 
-  Game({@required this.type, @required this.height, @required this.width, @required this.mineCount, this.duration = 0, this.flagCount = 99, this.state = GameState.idle}) {
+  Game(
+      {@required this.type,
+      @required this.height,
+      @required this.width,
+      @required this.mineCount,
+      this.duration = 0,
+      this.flagCount = 99,
+      this.state = GameState.idle}) {
     points = [];
     mines = [];
 
@@ -36,15 +43,15 @@ class Game {
       }
     }
 
-    print(points[4][1].nearbyCount);
+    // print(points[4][1].nearbyCount);
 
     // Took random mineCount times point and mine them
     int placedMine = 0;
-    while(placedMine != mineCount){
+    while (placedMine != mineCount) {
       int randomX = (Random().nextDouble() * width).floor();
       int randomY = (Random().nextDouble() * height).floor();
 
-      if(!points[randomX][randomY].mined){
+      if (!points[randomX][randomY].mined) {
         // Place mines
         placeMine(randomX, randomY);
         placedMine++;
@@ -52,7 +59,7 @@ class Game {
     }
   }
 
-  void placeMine(int randomX, int randomY){
+  void placeMine(int randomX, int randomY) {
     points[randomX][randomY].mined = true;
 
     // Put that point to mines list, to access it later easily
@@ -69,8 +76,8 @@ class Game {
     increaseNearbyCount(randomX - 1, randomY + 1); // South West
   }
 
-  bool increaseNearbyCount(x, y){
-    if((x >= 0 && x < width) && (y >= 0 && y < height)){
+  bool increaseNearbyCount(x, y) {
+    if ((x >= 0 && x < width) && (y >= 0 && y < height)) {
       points[x][y].increaseNearbyCount();
     }
   }

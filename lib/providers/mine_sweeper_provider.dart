@@ -281,7 +281,7 @@ class MineSweeperProvider extends ChangeNotifier {
 
   @override
   void dispose() {
-    timer.cancel();
+    timer?.cancel();
     super.dispose();
   }
 }

@@ -80,10 +80,6 @@ class _SetupPageState extends State<SetupPage> {
                             onChanged: (int val) {
                               setState(() {
                                 _selected = val;
-                                Provider.of<GameSettingsProvider>(context,
-                                        listen: false)
-                                    .changeSettings(
-                                        GameType.beginner, 9, 9, 10);
                               });
                             }),
                       ),
@@ -114,23 +110,19 @@ class _SetupPageState extends State<SetupPage> {
                             onChanged: (int val) {
                               setState(() {
                                 _selected = val;
-                                Provider.of<GameSettingsProvider>(context,
-                                        listen: false)
-                                    .changeSettings(
-                                        GameType.intermediate, 16, 16, 40);
                               });
                             }),
                       ),
                       Text(
-                        "16",
+                        "12",
                         style: Flutter95.textStyle,
                       ),
                       Text(
-                        "16",
+                        "25",
                         style: Flutter95.textStyle,
                       ),
                       Text(
-                        "40",
+                        "60",
                         style: Flutter95.textStyle,
                       )
                     ]),
@@ -148,10 +140,6 @@ class _SetupPageState extends State<SetupPage> {
                             onChanged: (int val) {
                               setState(() {
                                 _selected = val;
-                                Provider.of<GameSettingsProvider>(context,
-                                        listen: false)
-                                    .changeSettings(
-                                        GameType.expert, 16, 30, 90);
                               });
                             }),
                       ),
@@ -206,7 +194,7 @@ class _SetupPageState extends State<SetupPage> {
                         child: TextField95(
                           controller: minesController,
                           inputType: TextInputType.number,
-                          maxLength: 3,
+                          maxLength: 2,
                         ),
                       ),
                     ]),
@@ -269,15 +257,23 @@ class _SetupPageState extends State<SetupPage> {
                           errorText = "Something wrong with the inputs!";
                         });
                         return;
+                      } else if (_selected == 3 && (mines >= width * height)) {
+                        setState(() {
+                          errorText = "You put so many mines!";
+                        });
+                      } else if (_selected == 3 && (mines <= 0)) {
+                        setState(() {
+                          errorText = "You need to put mines!";
+                        });
                       } else {
                         setState(() {
                           errorText = "";
                         });
+                        Provider.of<GameSettingsProvider>(context,
+                                listen: false)
+                            .changeSettings(type, width, height, mines);
+                        Navigator.pop(context);
                       }
-
-                      Provider.of<GameSettingsProvider>(context, listen: false)
-                          .changeSettings(type, width, height, mines);
-                      Navigator.pop(context);
                     },
                   ),
                 )
