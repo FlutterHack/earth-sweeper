@@ -231,8 +231,8 @@ class MineSweeperProvider extends ChangeNotifier {
       for (int y = 0; y < game.height; y++) {
         MineBlockController block = points[x][y];
 
-        if (!block.flagged && block.pointData.mined) {
-          block.flagged = true;
+        if (block.pointData.mined) {
+          // block.flagged = true;
           block.exposed = true;
         }
 
